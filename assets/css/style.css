@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+}
+
+.sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background-color: #343a40;
+    color: white;
+    padding-top: 1rem;
+    transition: all 0.3s ease;
+    overflow-x: hidden;
+    z-index: 999;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.sidebar a i {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.sidebar.collapsed a span {
+    display: none;
+}
+
+.navbar-custom {
+    background-color: #f8f9fa;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 56px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.main-content {
+    margin-left: 220px;
+    margin-top: 56px;
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+}
+
+.main-content.collapsed {
+    margin-left: 60px;
+}
+
+.margin-auto {
+    margin: auto;
+}
