@@ -43,13 +43,12 @@
         </section>
 
         <section class="botoes">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cadastrar">
                 Cadastrar Produto
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modal_cadastrar"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -57,7 +56,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="row g-3">
+                            <div class="resp_alert">
+
+                            </div>
+                            <form class="row g-3" method="POST" id="form_cadastro">
                                 <div class="col-md-6">
                                     <label for="inputname" class="form-label">Nome</label>
                                     <input type="text" class="form-control" id="inputname"
@@ -112,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12  text-center">
-                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
                                 </div>
                             </form>
                         </div>
@@ -125,20 +127,15 @@
             </div>
         </section>
         <hr>
-        <!-- <section class="main_text">
-            <h1>Produtos Cadastrados</h1>
-            <p>Aqui vai ficar a listagem de produtos.</p>
-        </section> -->
-        <!-- tabela -->
         <section class="tabela">
-            <table id="tabela" class="display" style="width:100%">
+            <table id="tabela"  class="table table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Codigo</th>
                         <th>Nome</th>
                         <th>Disponível</th>
                         <th>Quantidade</th>
-                        <th>Valor (R$)</th>
+                        <th>Valor <!-- (R$) --></th>
                         <th>Categoria</th>
                         <th>Descrição</th>
                         <!-- th colspan="2">Ações</th> -->
@@ -153,8 +150,7 @@
 
     <script src="assets/js/jquery-3.7.1.min.js"></script>
     <script src="assets/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/datatables.min.js">
-    </script>
+    <script src="assets/js/datatables.min.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
