@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Estoque</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+    <link href="assets/bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/datatables.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -33,11 +32,10 @@
         <a href="#"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
         <a href="assets/pages/usuarios.html"><i class="bi bi-people"></i><span> Usuários</span></a>
         <a href="assets/pages/configuracoes.html"><i class="bi bi-gear"></i><span> Configurações</span></a>
-        <a href="assets/pages/help.html"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
+        <a href="assets/pages/help.html"><i class="bi bi-info-circle"></i><span> Help</span></a>
         <a href="assets/pages/exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
 
-    <!-- conteúdo principal -->
     <main class="main-content" id="mainContent">
         <section class="main_text">
             <h1>Bem-vindo, <b>User</b>!</h1>
@@ -45,13 +43,12 @@
         </section>
 
         <section class="botoes">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cadastrar">
                 Cadastrar Produto
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modal_cadastrar"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -59,7 +56,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="row g-3">
+                            <div class="resp_alert">
+
+                            </div>
+                            <form class="row g-3" method="POST" id="form_cadastro">
                                 <div class="col-md-6">
                                     <label for="inputname" class="form-label">Nome</label>
                                     <input type="text" class="form-control" id="inputname"
@@ -76,10 +76,17 @@
                                     <input type="text" class="form-control" id="inputdesc"
                                         placeholder="Descrição do produto">
                                 </div>
-                                <div class="col-12">
+                                <div class="col-md-8">
                                     <label for="inputimg" class="form-label">Imagem</label>
                                     <input type="text" class="form-control" id="inputimg"
                                         placeholder="Ainda tem que implementar">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputdisponivel" class="form-label">Disponível</label>
+                                    <select id="inputdisponivel" class="form-select">
+                                        <option selected>Sim</option>
+                                        <option>Não</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputprice" class="form-label">Valor Unitário (R$)</label>
@@ -107,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12  text-center">
-                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
                                 </div>
                             </form>
                         </div>
@@ -120,16 +127,31 @@
             </div>
         </section>
         <hr>
+        <section class="tabela">
+            <table id="tabela"  class="table table-bordered display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nome</th>
+                        <th>Disponível</th>
+                        <th>Quantidade</th>
+                        <th>Valor <!-- (R$) --></th>
+                        <th>Categoria</th>
+                        <th>Descrição</th>
+                        <!-- th colspan="2">Ações</th> -->
+                    </tr>
+                </thead>
+            </table>
+
+        </section>
 
     </main>
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-    <script src="cdn.datatables.net/2.3.2/js/dataTables.min.js">
-    </script>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/datatables.min.js"></script>
+        <script src="assets/js/main.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 

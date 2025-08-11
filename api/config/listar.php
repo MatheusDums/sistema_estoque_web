@@ -10,7 +10,6 @@ $colunas = [
     3 => 'quantidade',
     4 => 'valor',
     5 => 'categoria',
-    6 => 'descricao'
 ];
 
 // Total de registros SEM filtro
@@ -33,8 +32,7 @@ if (!empty($dados_requisicao['search']['value'])) {
     $where = " WHERE nome LIKE :search 
                OR codigo LIKE :search 
                OR categoria LIKE :search 
-               OR quantidade LIKE :search 
-               OR descricao LIKE :search ";
+               OR quantidade LIKE :search";
 }
 
 // Total de registros COM filtro
@@ -48,7 +46,7 @@ $stmtFiltered->execute();
 $totalFiltrado = $stmtFiltered->fetch(PDO::FETCH_ASSOC)['total'];
 
 // Consulta final com LIMIT
-$listar = "SELECT nome, codigo, estoque, quantidade, valor, categoria, descricao 
+$listar = "SELECT nome, codigo, estoque, quantidade, valor, categoria
            FROM produtos 
            $where 
            ORDER BY $colunaOrdenar $orderDir 
@@ -60,17 +58,26 @@ if (!empty($dados_requisicao['search']['value'])) {
 }
 $result_listar->execute();
 
+
 // Monta array de dados
 $dados = [];
 while ($row_usuario = $result_listar->fetch(PDO::FETCH_ASSOC)) {
+    $codigo = $row_usuario['codigo'];
+    $nome = $row_usuario['nome'];
+    $estoque = $row_usuario['estoque'];
+    $quantidade = $row_usuario['quantidade'];
+    $valor = $row_usuario['valor'];
+    $categoria = $row_usuario['categoria'];
     $registro = [];
-    $registro[] = $row_usuario['codigo'];
-    $registro[] = $row_usuario['nome'];
-    $registro[] = $row_usuario['estoque'];
-    $registro[] = $row_usuario['quantidade'];
-    $registro[] = $row_usuario['valor'];
-    $registro[] = $row_usuario['categoria'];
-    $registro[] = $row_usuario['descricao'];
+    $registro[] = $codigo;
+    $registro[] = $nome;
+    $registro[] = $estoque;
+    $registro[] = $quantidade;
+    $registro[] = $valor;
+    $registro[] = $categoria;
+    $registro[] = "<button type='button' id='$codigo' class='btn btn-primary' onclick='visUser($codigo)'><i class='bi bi-list-columns'></i></button>
+                    <button type='button'  class='btn btn-secondary'><i class='bi bi-pencil-fill'></i></button> 
+                    <button type='button' class='btn btn-danger'><i class='bi bi-trash'></i></button>";
     $dados[] = $registro;
 }
 
