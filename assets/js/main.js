@@ -44,12 +44,12 @@ $(document).ready(function () {
             listarDataTable.ajax.reload(null, false);
             setTimeout(() => {
               document.getElementById("msgAlertErroListar").innerHTML = "";
-            }, 4000);
+            }, 5000);
           } else {
             document.getElementById("msgAlertErroCad").innerHTML = resposta['message'];
             setTimeout(() => {
               document.getElementById("msgAlertErroCad").innerHTML = "";
-            }, 4000);
+            }, 5000);
           }
 
         });
@@ -57,10 +57,8 @@ $(document).ready(function () {
 
 /* detalhes - modal */
 async function visUser(id) {
-  /* console.log(id); */
   const dados = await fetch('api/config/visualizar.php?id=' + id);
   const respostaVisualizar = await dados.json();
-  console.log(respostaVisualizar);
 
   if (respostaVisualizar['status']) {
     const visModal = new bootstrap.Modal(document.getElementById('visUserModal'));
@@ -77,7 +75,62 @@ async function visUser(id) {
     document.getElementById("msgAlertErroListar").innerHTML = respostaVisualizar['message'];
     setTimeout(() => {
               document.getElementById("msgAlertErroListar").innerHTML = "";
-            }, 4000);
+            }, 5000);
   }
 
+}
+
+/* editar - modal */
+const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+async function editUser(id) {
+  const dados = await fetch('api/config/visualizar.php?id=' + id);
+  const respostaEditar = await dados.json();
+  console.log(respostaEditar);
+
+  if (respostaEditar['status']) {
+    editModal.show();
+    document.getElementById("edit_id").value = respostaEditar['dados'].id;
+    document.getElementById("edit_nome").value = respostaEditar['dados'].nome;
+    document.getElementById("edit_codigo").value = respostaEditar['dados'].codigo
+    document.getElementById("edit_estoque").value = respostaEditar['dados'].estoque;
+    document.getElementById("edit_quantidade").value = respostaEditar['dados'].quantidade;
+    document.getElementById("edit_valor").value = respostaEditar['dados'].valor
+    document.getElementById("edit_categoria").value = respostaEditar['dados'].categoria;
+    document.getElementById("edit_descricao").value = respostaEditar['dados'].descricao
+  } else {
+    document.getElementById("msgAlertErroListar").innerHTML = respostaEditar['message'];
+    setTimeout(() => {
+              document.getElementById("msgAlertErroListar").innerHTML = "";
+            }, 5000);
+  }
+
+}
+
+const formEditUser = document.getElementById("form_editar");
+if (formEditUser) {
+  formEditUser.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const dadosForm = new FormData(formEditUser);
+    const dados = await fetch("api/config/editar.php", {
+      method: "POST",
+      body: dadosForm
+    });
+
+    const resposta = await dados.json();
+    if(resposta['status']) {
+      history.replaceState(null, null, window.location.href);
+      $('#editModal').modal('hide');
+      document.getElementById("msgAlertErroListar").innerHTML = resposta['message'];
+      listarDataTable = $("#tabela").DataTable();
+      listarDataTable.ajax.reload(null, false);
+      setTimeout(() => {
+        document.getElementById("msgAlertErroListar").innerHTML = "";
+      }, 5000);
+    } else {
+      document.getElementById("msgAlertErroEdit").innerHTML = resposta['message'];
+      setTimeout(() => {
+        document.getElementById("msgAlertErroEdit").innerHTML = "";
+      }, 5000);
+    }
+  })
 }

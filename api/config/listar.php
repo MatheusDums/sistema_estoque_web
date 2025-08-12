@@ -46,7 +46,7 @@ $stmtFiltered->execute();
 $totalFiltrado = $stmtFiltered->fetch(PDO::FETCH_ASSOC)['total'];
 
 // Consulta final com LIMIT
-$listar = "SELECT nome, codigo, estoque, quantidade, valor, categoria
+$listar = "SELECT id, nome, codigo, estoque, quantidade, valor, categoria
            FROM produtos 
            $where 
            ORDER BY $colunaOrdenar $orderDir 
@@ -62,6 +62,7 @@ $result_listar->execute();
 // Monta array de dados
 $dados = [];
 while ($row_usuario = $result_listar->fetch(PDO::FETCH_ASSOC)) {
+    $id = $row_usuario['id'];
     $codigo = $row_usuario['codigo'];
     $nome = $row_usuario['nome'];
     $estoque = $row_usuario['estoque'];
@@ -75,9 +76,9 @@ while ($row_usuario = $result_listar->fetch(PDO::FETCH_ASSOC)) {
     $registro[] = $quantidade;
     $registro[] = $valor;
     $registro[] = $categoria;
-    $registro[] = "<button type='button' id='$codigo' class='btn btn-primary' onclick='visUser($codigo)'><i class='bi bi-list-columns'></i></button>
-                    <button type='button'  class='btn btn-secondary'><i class='bi bi-pencil-fill'></i></button> 
-                    <button type='button' class='btn btn-danger'><i class='bi bi-trash'></i></button>";
+    $registro[] = "<button type='button' id='$id' class='btn btn-primary' onclick='visUser($id)'><i class='bi bi-list-columns'></i></button>
+                    <button type='button' id='$id' class='btn btn-secondary' onclick='editUser($id)'><i class='bi bi-pencil-fill'></i></button> 
+                    <button type='button' id='$id' class='btn btn-danger' onclick='deleteUser($id)'><i class='bi bi-trash'></i></button>";
     $dados[] = $registro;
 }
 

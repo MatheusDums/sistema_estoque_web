@@ -29,7 +29,7 @@ if(empty($dados_cadastro['nome']) || empty($dados_cadastro['codigo'])
         $resposta = [
             "status" => true,
             "message" => "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                Produto cadastrado com sucesso!
+                Produto <b>". $dados_cadastro['nome'] . "</b> cadastrado com sucesso!
                 <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
             </div>"
         ];

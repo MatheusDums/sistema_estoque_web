@@ -51,14 +51,15 @@
             <div class="modal fade" id="modal_cadastrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-primary text-white">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastro de Produto</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <span id="msgAlertErroCad">
                             </span>
                             <form class="row g-3" method="POST" id="form_cadastro">
+                                <input type="hidden" id="id" name="id">
                                 <div class="col-md-6">
                                     <label for="inputname" class="form-label">Nome</label>
                                     <input type="text" class="form-control" id="inputname" name="nome"
@@ -79,7 +80,7 @@
 
                                 <div class="col-md-8">
                                     <label for="inputimg" class="form-label">Imagem</label>
-                                    <input type="text" class="form-control" id="inputimg" name="imagem"
+                                    <input type="text" class="form-control" id="inputimg" name="imagem" disabled
                                         placeholder="Ainda tem que implementar">
                                 </div>
 
@@ -119,16 +120,14 @@
                                         </label>
                                     </div>
                                 </div>
-
+                                <hr>
                                 <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
                                     <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
                                 </div>
+
                             </form>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary">Ok</button>
                         </div>
                     </div>
                 </div>
@@ -151,6 +150,7 @@
                         <div class="modal-body">
                             <dl class="row g-3">
                                 <div class="col-md-6">
+                                    <input type="hidden" id="list_id" name="id">
                                     <dt class="fw-bold ">Código</dt>
                                     <dd class="text-dark"><span id="codigo"></span></dd>
                                 </div>
@@ -178,14 +178,105 @@
                                     <dt class="fw-bold ">Descrição</dt>
                                     <dd class="text-dark"><span id="descricao"></span></dd>
                                 </div>
+
+                                <hr>
+
+                                <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                                </div>
                             </dl>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Rodapé -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger">Excluir</button>
-                            <button type="button"  class="btn btn-primary">Editar</button> 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <!-- Modal para Editar -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Cabeçalho -->
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="EditModalLabel">
+                                <i class='bi bi-pencil-fill me-2'></i> Editar Produto
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+
+                        <!-- Corpo -->
+                        <div class="modal-body">
+                            <span id="msgAlertErroEdit">
+                            </span>
+                            <form class="row g-3" method="POST" id="form_editar">
+                                <input type="hidden" id="edit_id" name="id">
+
+                                <div class="col-md-6">
+                                    <label for="inputname" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="edit_nome" name="nome"
+                                        placeholder="Nome do produto">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="inputcode" class="form-label">Código</label>
+                                    <input type="text" class="form-control" id="edit_codigo" name="codigo"
+                                        placeholder="Código do produto">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="inputdesc" class="form-label">Descrição</label>
+                                    <input type="text" class="form-control" id="edit_descricao" name="descricao"
+                                        placeholder="Descrição do produto">
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label for="inputimg" class="form-label">Imagem</label>
+                                    <input type="text" class="form-control" id="edit_imagem" name="imagem" disabled
+                                        placeholder="Ainda tem que implementar">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="inputdisponivel" class="form-label">Disponível</label>
+                                    <select id="edit_disponivel" class="form-select" name="disponivel">
+                                        <option value="Sim" selected>Sim</option>
+                                        <option value="Não">Não</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="inputprice" class="form-label">Valor Unitário (R$)</label>
+                                    <input type="text" class="form-control" id="edit_valor" name="valor"
+                                        placeholder="R$00,00">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="inputcategoria" class="form-label">Categoria</label>
+                                    <select id="edit_categoria" class="form-select" name="categoria">
+                                        <option value="categoria" selected>Categoria</option>
+                                        <option value="...">...</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="inputquant" class="form-label">Quant.</label>
+                                    <input type="number" class="form-control" id="edit_quantidade" name="quantidade"
+                                        placeholder="0">
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="edit_estoque" name=estoque" value="fora">
+                                        <label class="form-check-label" for="gridCheck">
+                                            Fora de estoque
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="submit" value="editar" class="btn btn-outline-warning">Editar</button>
+                                </div>
+
+                            </form>
+
                         </div>
                     </div>
                 </div>
