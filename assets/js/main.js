@@ -13,7 +13,7 @@ $(document).ready(function () {
             url: "./assets/json/traducao.json"
         },
         ajax: "api/config/listar.php",
-    });   
+    });      
 });
 
 
@@ -133,4 +133,27 @@ if (formEditUser) {
       }, 5000);
     }
   })
+}
+
+async function deleteUser(id) {
+
+  var confirmar = confirm("Deseja excluir este produto?");
+  if (confirmar) {
+    const dados = await fetch('api/config/apagar.php?id=' + id);
+    const respostaDeletar = await dados.json();
+    
+    if(respostaDeletar['status']) {
+      listarDataTable = $("#tabela").DataTable();
+      listarDataTable.draw();
+      document.getElementById("msgAlertErroListar").innerHTML = respostaDeletar['message'];
+      setTimeout(() => {
+        document.getElementById("msgAlertErroListar").innerHTML = "";
+      }, 5000);
+      } else {
+        document.getElementById("msgAlertErroListar").innerHTML = respostaDeletar['message'];
+        setTimeout(() => {
+          document.getElementById("msgAlertErroListar").innerHTML = "";
+        }, 5000);
+    }
+  }
 }

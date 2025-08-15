@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Estoque</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Sistema de Estoque - Usuários</title>
+    <link href="../bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/datatables.min.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -17,38 +17,276 @@
         <a class="btn btn-link me-3" id="toggleSidebar">
             <i class="bi bi-list" style="color: black;"></i>
         </a>
-
         <a class="navbar-brand" href="../../index.html">Sistema de Estoque</a>
-
         <div class="ms-auto  d-flex align-items-center gap-3">
-            <p class="text-dark text-center margin-auto">Bem vindo, <a style="text-decoration: none; color: black;" href="perfil.html"><b>Usuário</b></a></p>
+            <p class="text-dark text-center margin-auto">Bem vindo, <a style="text-decoration: none; color: black;"
+                    href="perfil.html"><b>Usuário</b></a></p>
         </div>
     </nav>
 
     <!-- sidebar -->
     <section class="sidebar" id="sidebar">
-<!--         <a href="../../index.html"><i class="bi bi-speedometer2"></i><span> Produtos</span></a> -->
-        <a href="../../index.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
+        <a href="../../index.html"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
         <a href="usuarios.html"><i class="bi bi-people"></i><span> Usuários</span></a>
         <a href="configuracoes.html"><i class="bi bi-gear"></i><span> Configurações</span></a>
-        <a href="help.html"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
+        <a href="help.html"><i class="bi bi-info-circle"></i><span> Help</span></a>
         <a href="exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
 
     <!-- conteúdo principal -->
-    <main>
-        <section class="main-content" id="mainContent">
+    <main class="main-content" id="mainContent">
+        <section class="main_text">
             <h1><b>Usuários</b> do Sistema.</h1>
             <p>Lista de Usuários registrados no sistema.</p>
         </section>
+
+        <!-- Button  modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cadastrar_users">
+            Cadastro de Usuário
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal_cadastrar_users" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="bi bi-person-add"></i> Cadastro
+                            de Usuário</h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+
+                    <!-- Corpo -->
+                    <div class="modal-body">
+                        <span id="msgAlertErroUsers">
+                        </span>
+                        <form class="row g-3" method="POST" id="form_cadastro_user">
+                            <div class="col-12">
+                                <label for="inputNome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="inputNome" placeholder="Nome Completo" name="nome">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputUser" class="form-label">User</label>
+                                <input type="text" class="form-control" id="inputUser" placeholder="Usuário" name="usuario">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputSenha" class="form-label">Senha</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="inputSenha" placeholder="*********" name="senha">
+                                    <button class="btn btn-outline-secondary editUsers" type="button" id="toggleSenha">
+                                        <span class="olhoIcone"><i class="bi bi-eye"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="inputimg" class="form-label">Imagem</label>
+                                <input type="text" class="form-control" id="inputimg" name="imagem" disabled
+                                    placeholder="Ainda tem que implementar">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" name="email"
+                                    placeholder="email@exemplo.com" >
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputTelefone" class="form-label">Telefone</label>
+                                <input type="text" class="form-control" id="inputTelefone" placeholder="(00) 00000-0000" name="telefone">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputCargo" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="inputCargo" placeholder="Cargo do usuário" name="cargo">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputCadastro" class="form-label">Cadastro</label>
+                                <input type="text" class="form-control" id="inputCadastro" placeholder="Matrícula" name="cadastro">
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkUsers">
+                                    <label class="form-check-label" for="checkUsers">
+                                        Checkbox para teste
+                                    </label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" id="buttons_user" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" id="buttons_users" class="btn btn-outline-primary">Cadastrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <!-- tabela de funcionarios -->
+        <section class="tabela_section">
+            <span id="msgAlertusuarios">
+            </span>
+            <table id="tabela_usuarios" class="table table-bordered display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Cadastro</th>
+                        <th>Nome</th>
+                        <th>Usuário</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Cargo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+            </table>
+
+        </section>
     </main>
 
+<!-- modais extras -->
+    <!-- modal de detalhes -->
+            <div class="modal fade" id="visUserModalUsuarios" tabindex="-1" aria-labelledby="visUserModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md modal-dialog-centered">
+                    <div class="modal-content shadow-lg border-0">
+
+                        <!-- Cabeçalho -->
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="visUserModalLabel">
+                                <i class="bi bi-box-seam me-2"></i> Detalhes do Produto
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+
+                        <!-- Corpo -->
+                        <div class="modal-body">
+                            <dl class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="hidden" id="list_cadastro" name="cadastro">
+                                    <dt class="fw-bold ">Cadastro</dt>
+                                    <dd class="text-dark"><span id="cadastro"></span></dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt class="fw-bold ">Nome</dt>
+                                    <dd class="text-dark"><span id="nome"></span></dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt class="fw-bold ">Usuário</dt>
+                                    <dd class="text-dark"><span id="usuario"></span></dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt class="fw-bold ">Senha</dt>
+                                    <dd class="text-dark"><span id="senha"></span></dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt class="fw-bold ">Email</dt>
+                                    <dd class="text-dark"><span id="email"></span></dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt class="fw-bold ">Telefone</dt>
+                                    <dd class="text-dark"><span id="telefone"></span></dd>
+                                </div>
+                                <div class="col-12">
+                                    <dt class="fw-bold ">Cargo</dt>
+                                    <dd class="text-dark"><span id="cargo"></span></dd>
+                                </div>
+
+                                <hr>
+
+                                <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-    <script src="../js/script.js"></script>
+    <!-- modal de editar -->
+    <div class="modal fade" id="editModalUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <!-- Cabeçalho -->
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="EditModalLabel">
+                        <i class='bi bi-pencil-fill me-2'></i> Editar Produto
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+
+                <!-- Corpo -->
+                <div class="modal-body">
+                    <span id="msgAlertErroUsersEditar">
+                    </span>
+                    <form class="row g-3" method="POST" id="form_editar">
+                        <input type="hidden" id="edit_id_user" name="id_user">
+                            <div class="col-12">
+                                <label for="inputNome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="edit_nome_user" placeholder="Nome Completo" name="nome_user">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputUser" class="form-label">User</label>
+                                <input type="text" class="form-control" id="edit_usuario_user" placeholder="Usuário" name="usuario_user">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputSenha" class="form-label">Senha</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="edit_senha_user" placeholder="*********" name="senha_user">
+                                    <button class="btn btn-outline-secondary editUsers" type="button" id="toggleSenhaEdit">
+                                        <span  class="olhoIcone"><i class="bi bi-eye"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="inputimg" class="form-label">Imagem</label>
+                                <input type="text" class="form-control" id="edit_imagem" name="imagem" disabled
+                                    placeholder="Ainda tem que implementar">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="edit_email_user" name="email_user"
+                                    placeholder="email@exemplo.com" >
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputTelefone" class="form-label">Telefone</label>
+                                <input type="text" class="form-control" id="edit_telefone_user" placeholder="(00) 00000-0000" name="telefone_user">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputCargo" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="edit_cargo_user" placeholder="Cargo do usuário" name="cargo_user">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputCadastro" class="form-label">Cadastro</label>
+                                <input type="text" class="form-control" id="edit_cadastro_user" placeholder="Matrícula" name="cadastro_user">
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Checkbox para teste
+                                    </label>
+                                </div>
+                            </div>
+
+                        <hr>
+                        <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" value="editar" class="btn btn-outline-warning">Editar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
+    <script src="../js/datatables.min.js"></script>
+    <script src="../js/script.js?v=<?= filemtime('../js/script.js') ?>"></script>
+    <script src="../js/script_user.js?v=<?= filemtime('../js/script_user.js') ?>"></script>
 </body>
 
 </html>
