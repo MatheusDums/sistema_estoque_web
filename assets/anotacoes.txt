@@ -1,0 +1,13 @@
+para criptografar a senha em Base64 na criação do usuario
+
+$senhaCrip = json_encode(
+                $dados_cadastro['senha'],
+            );
+    $senha = base64_encode($senhaCrip);
+
+para criptografar a senha em Base64 na atualização do usuario
+
+$senhaCrip = json_encode(
+                $dados['senha_user']
+            );
+    $senha = base64_encode($senhaCrip);

@@ -155,3 +155,27 @@ if (formEditUser) {
     }
   })
 }
+
+/* excluir user */
+async function deleteUser(id) {
+
+  var confirmar = confirm("Deseja excluir este Usuário?");
+  if (confirmar) {
+    const dados = await fetch('../../api/configUsers/excluirUsers.php?id=' + id);
+    const respostaDeletar = await dados.json();
+    
+    if(respostaDeletar['status']) {
+      listarDataTable = $("#tabela_usuarios").DataTable();
+      listarDataTable.draw();
+      document.getElementById("msgAlertusuarios").innerHTML = respostaDeletar['message'];
+      setTimeout(() => {
+        document.getElementById("msgAlertusuarios").innerHTML = "";
+      }, 5000);
+      } else {
+        document.getElementById("msgAlertusuarios").innerHTML = respostaDeletar['message'];
+        setTimeout(() => {
+          document.getElementById("msgAlertusuarios").innerHTML = "";
+        }, 5000);
+    }
+  }
+}
