@@ -13,11 +13,27 @@ if(empty($dados_cadastro['nome']) || empty($dados_cadastro['codigo'])
         </div>"
     ];
 } else {
-    $cadastrar = "INSERT INTO produtos (nome, codigo, estoque, quantidade, valor, categoria, descricao) 
-     VALUES (:nome, :codigo, :estoque, :quantidade, :valor, :categoria, :descricao)";
+    $imagem = null;
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
+
+        $pasta =__DIR__ . "/../../assets/arquivos/uploads/";
+        
+
+        $nomeArquivo = uniqid() . "-" . basename($_FILES['imagem']['name']);
+        $caminho = $pasta . $nomeArquivo;
+
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho)) {
+
+            $imagem = "assets/arquivos/uploads/" . $nomeArquivo;
+        }
+    }
+    
+    $cadastrar = "INSERT INTO produtos (nome, codigo, imagem, estoque, quantidade, valor, categoria, descricao) 
+     VALUES (:nome, :codigo, :imagem, :estoque, :quantidade, :valor, :categoria, :descricao)";
     $result_cadastrar = $conn->prepare($cadastrar);
     $result_cadastrar->bindParam(':nome', $dados_cadastro['nome']);
     $result_cadastrar->bindParam(':codigo', $dados_cadastro['codigo']);
+    $result_cadastrar->bindParam(':imagem', $imagem);
     $result_cadastrar->bindParam(':estoque', $dados_cadastro['disponivel']);
     $result_cadastrar->bindParam(':quantidade', $dados_cadastro['quantidade']);
     $result_cadastrar->bindParam(':valor', $dados_cadastro['valor']);

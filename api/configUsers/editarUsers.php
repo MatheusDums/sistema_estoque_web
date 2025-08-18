@@ -17,13 +17,35 @@ if(empty($dados['id_user'])) {
         </div>"
     ];
 } else {
-    $senha = password_hash($dados['senha_user'], PASSWORD_DEFAULT);
-    $editar = "UPDATE usuarios SET cadastro=:cadastro, nome=:nome, user=:user, senha=:senha, 
+     $imagem = null;
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
+        $pasta = __DIR__ . "/../../assets/arquivos/uploadsUsers/";
+        $nomeArquivo = uniqid() . "-" . basename($_FILES['imagem']['name']);
+        $caminho = $pasta . $nomeArquivo;
+
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho)) {
+            $imagem = "../arquivos/uploadsUsers/" . $nomeArquivo;
+        }
+    }
+
+    if ($imagem) {
+        $editar = "UPDATE usuarios 
+                   SET cadastro=:cadastro, nome=:nome, imagem=:imagem, user=:user, senha=:senha, 
+                       email=:email, telefone=:telefone, cargo=:cargo
+                   WHERE id = :id";
+    } else {
+        $editar = "UPDATE usuarios SET cadastro=:cadastro, nome=:nome, user=:user, senha=:senha, 
     email=:email, telefone=:telefone, cargo=:cargo WHERE id = :id";
+    }
+
+    $senha = password_hash($dados['senha_user'], PASSWORD_DEFAULT);
     $editar = $conn->prepare($editar);
     $editar->bindParam(':id', $dados['id_user']);
     $editar->bindParam(':cadastro', $dados['cadastro_user']);
     $editar->bindParam(':nome', $dados['nome_user']);
+    if ($imagem) {
+        $editar->bindParam(':imagem', $imagem);
+    }
     $editar->bindParam(':user', $dados['usuario_user']);
     $editar->bindParam(':senha', $senha);
     $editar->bindParam(':email', $dados['email_user']);

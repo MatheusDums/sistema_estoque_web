@@ -4,7 +4,7 @@ require_once './conector.php';
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 if(!empty($id)) {
-    $detalhes = "SELECT `id`, `nome`, `codigo`, `estoque`, `quantidade`, `valor`, `categoria`, `descricao` FROM `produtos` WHERE id = :id LIMIT 1 ";
+    $detalhes = "SELECT `id`, `nome`, `codigo`,`imagem`, `estoque`, `quantidade`, `valor`, `categoria`, `descricao` FROM `produtos` WHERE id = :id LIMIT 1 ";
     $result_detalhes = $conn->prepare($detalhes);
     $result_detalhes->bindParam(':id', $id);
     $result_detalhes->execute();

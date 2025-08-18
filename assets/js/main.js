@@ -65,6 +65,7 @@ async function visUser(id) {
     visModal.show();
     document.getElementById("nome").innerHTML = respostaVisualizar['dados'].nome;
     document.getElementById("codigo").innerHTML = respostaVisualizar['dados'].codigo
+    document.getElementById("imgProduto").src = respostaVisualizar['dados'].imagem;
     document.getElementById("estoque").innerHTML = respostaVisualizar['dados'].estoque;
     document.getElementById("quantidade").innerHTML = respostaVisualizar['dados'].quantidade;
     document.getElementById("valor").innerHTML = respostaVisualizar['dados'].valor
@@ -92,19 +93,27 @@ async function editUser(id) {
     document.getElementById("edit_id").value = respostaEditar['dados'].id;
     document.getElementById("edit_nome").value = respostaEditar['dados'].nome;
     document.getElementById("edit_codigo").value = respostaEditar['dados'].codigo
+    document.getElementById("edit_img_preview").src = respostaEditar['dados'].imagem || '';
     document.getElementById("edit_estoque").value = respostaEditar['dados'].estoque;
     document.getElementById("edit_quantidade").value = respostaEditar['dados'].quantidade;
     document.getElementById("edit_valor").value = respostaEditar['dados'].valor
     document.getElementById("edit_categoria").value = respostaEditar['dados'].categoria;
     document.getElementById("edit_descricao").value = respostaEditar['dados'].descricao
+
+    const preview = document.getElementById("edit_img_preview");
+    if (respostaEditar['dados'].imagem && respostaEditar['dados'].imagem !== "") {
+        preview.src = respostaEditar['dados'].imagem; 
+    } else {
+        preview.src = "assets/arquivos/uploads/default.png";
+    }
   } else {
     document.getElementById("msgAlertErroListar").innerHTML = respostaEditar['message'];
     setTimeout(() => {
               document.getElementById("msgAlertErroListar").innerHTML = "";
             }, 5000);
   }
-
 }
+
 
 const formEditUser = document.getElementById("form_editar");
 if (formEditUser) {

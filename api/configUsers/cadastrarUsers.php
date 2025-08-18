@@ -13,13 +13,28 @@ if(empty($dados_cadastro['cadastro']) || empty($dados_cadastro['nome'])
         </div>"
     ];
 } else {
+    $imagem = null;
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
+
+        $pasta =__DIR__ . "/../../assets/arquivos/uploadsUsers/";
+
+        $nomeArquivo = uniqid() . "-" . basename($_FILES['imagem']['name']);
+        $caminho = $pasta . $nomeArquivo;
+
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho)) {
+            $imagem = "../arquivos/uploadsUsers/" . $nomeArquivo;
+        }
+    }
+
+
     $senha = password_hash($dados_cadastro['senha'], PASSWORD_DEFAULT);
 
-    $cadastrar = "INSERT INTO usuarios (cadastro, nome, user, senha, email, telefone, cargo) 
-     VALUES (:cadastro, :nome, :user, :senha, :email, :telefone, :cargo)";
+    $cadastrar = "INSERT INTO usuarios (cadastro, nome, imagem, user, senha, email, telefone, cargo) 
+     VALUES (:cadastro, :nome, :imagem, :user, :senha, :email, :telefone, :cargo)";
     $result_cadastrar = $conn->prepare($cadastrar);
     $result_cadastrar->bindParam(':cadastro', $dados_cadastro['cadastro']);
     $result_cadastrar->bindParam(':nome', $dados_cadastro['nome']);
+    $result_cadastrar->bindParam(':imagem', $imagem);
     $result_cadastrar->bindParam(':user', $dados_cadastro['usuario']);
     $result_cadastrar->bindParam(':senha', $senha);
     $result_cadastrar->bindParam(':email', $dados_cadastro['email']);

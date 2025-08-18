@@ -58,7 +58,7 @@
                         <div class="modal-body">
                             <span id="msgAlertErroCad">
                             </span>
-                            <form class="row g-3" method="POST" id="form_cadastro">
+                            <form class="row g-3" method="POST" id="form_cadastro" enctype="multipart/form-data">
                                 <input type="hidden" id="id" name="id">
                                 <div class="col-md-6">
                                     <label for="inputname" class="form-label">Nome</label>
@@ -78,13 +78,18 @@
                                         placeholder="Descrição do produto">
                                 </div>
 
-                                <div class="col-md-8">
+                                <!-- <div class="col-md-8">
                                     <label for="inputimg" class="form-label">Imagem</label>
                                     <input type="text" class="form-control" id="inputimg" name="imagem" disabled
                                         placeholder="Ainda tem que implementar">
+                                </div> -->
+
+                                <div class="col-md-12">
+                                    <label for="imagem" class="form-label">Imagem do Produto</label>
+                                    <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="inputdisponivel" class="form-label">Disponível</label>
                                     <select id="inputdisponivel" class="form-select" name="disponivel">
                                         <option value="Sim" selected>Sim</option>
@@ -98,7 +103,7 @@
                                         placeholder="R$00,00">
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <label for="inputcategoria" class="form-label">Categoria</label>
                                     <select id="inputcategoria" class="form-select" name="categoria">
                                         <option value="categoria" selected>Categoria</option>
@@ -106,7 +111,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label for="inputquant" class="form-label">Quant.</label>
                                     <input type="number" class="form-control" id="inputquant" name="quantidade"
                                         placeholder="0">
@@ -149,6 +154,9 @@
                         <!-- Corpo -->
                         <div class="modal-body">
                             <dl class="row g-3">
+                                <div class="col-12 text-center">
+                                    <img id="imgProduto" src="" class="img-fluid rounded" alt="Imagem do Produto" style="height: 200px;">
+                                </div>
                                 <div class="col-md-6">
                                     <input type="hidden" id="list_id" name="id">
                                     <dt class="fw-bold ">Código</dt>
@@ -229,8 +237,13 @@
 
                                 <div class="col-md-8">
                                     <label for="inputimg" class="form-label">Imagem</label>
-                                    <input type="text" class="form-control" id="edit_imagem" name="imagem" disabled
-                                        placeholder="Ainda tem que implementar">
+                                    <!-- Pré-visualização da imagem atual -->
+                                    <div class="mb-2">
+                                        <img id="edit_img_preview" src="" alt="Imagem atual" class="img-thumbnail" style="max-height:150px;">
+                                    </div>
+                                    <!-- Input para selecionar nova imagem -->
+                                    <input type="file" class="form-control" id="edit_imagem" name="imagem" accept="image/*">
+                                    <small class="text-muted">Selecione uma nova imagem para substituir a atual (opcional).</small>
                                 </div>
 
                                 <div class="col-md-4">

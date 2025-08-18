@@ -86,6 +86,7 @@ async function visUser(id) {
     visModal.show();
     document.getElementById("cadastro").innerHTML = respostaVisualizar['dados'].cadastro;
     document.getElementById("nome").innerHTML = respostaVisualizar['dados'].nome;
+    document.getElementById("imgUsers").src = respostaVisualizar['dados'].imagem;
     document.getElementById("usuario").innerHTML = respostaVisualizar['dados'].user;
     document.getElementById("senha").innerHTML = '********';
     document.getElementById("email").innerHTML = respostaVisualizar['dados'].email
@@ -112,12 +113,22 @@ async function editUser(id) {
     editModal.show();
     document.getElementById("edit_id_user").value = respostaEditar['dados'].id;
     document.getElementById("edit_nome_user").value = respostaEditar['dados'].nome;
+    document.getElementById("edit_img_preview").src = respostaEditar['dados'].imagem || '';
     document.getElementById("edit_usuario_user").value = respostaEditar['dados'].user;
     document.getElementById("edit_senha_user").value = respostaEditar['dados'].senha;
     document.getElementById("edit_email_user").value = respostaEditar['dados'].email;
     document.getElementById("edit_telefone_user").value = respostaEditar['dados'].telefone
     document.getElementById("edit_cargo_user").value = respostaEditar['dados'].cargo;
     document.getElementById("edit_cadastro_user").value = respostaEditar['dados'].cadastro
+
+    
+    const preview = document.getElementById("edit_img_preview");
+    if (respostaEditar['dados'].imagem && respostaEditar['dados'].imagem !== "") {
+        preview.src = respostaEditar['dados'].imagem; 
+    } else {
+        preview.src = "../assets/arquivos/uploadsUsers/default.png";
+    }
+
   } else {
     document.getElementById("msgAlertusuarios").innerHTML = respostaEditar['message'];
     setTimeout(() => {

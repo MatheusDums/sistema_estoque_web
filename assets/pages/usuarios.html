@@ -60,7 +60,7 @@
                     <div class="modal-body">
                         <span id="msgAlertErroUsers">
                         </span>
-                        <form class="row g-3" method="POST" id="form_cadastro_user">
+                        <form class="row g-3" method="POST" id="form_cadastro_user"  enctype="multipart/form-data">
                             <div class="col-12">
                                 <label for="inputNome" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="inputNome" placeholder="Nome Completo" name="nome">
@@ -79,10 +79,9 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <label for="inputimg" class="form-label">Imagem</label>
-                                <input type="text" class="form-control" id="inputimg" name="imagem" disabled
-                                    placeholder="Ainda tem que implementar">
-                            </div>
+                                    <label for="imagem" class="form-label">Imagem do Usuário</label>
+                                    <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
+                                </div>
                             <div class="col-md-6">
                                 <label for="inputEmail" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="inputEmail" name="email"
@@ -159,6 +158,9 @@
                         <!-- Corpo -->
                         <div class="modal-body">
                             <dl class="row g-3">
+                                <div class="col-12 text-center">
+                                    <img id="imgUsers" src="" class="img-fluid rounded" alt="Imagem do usuario" style="height: 200px;">
+                                </div>
                                 <div class="col-md-6">
                                     <input type="hidden" id="list_cadastro" name="cadastro">
                                     <dt class="fw-bold ">Cadastro</dt>
@@ -236,11 +238,16 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <label for="inputimg" class="form-label">Imagem</label>
-                                <input type="text" class="form-control" id="edit_imagem" name="imagem" disabled
-                                    placeholder="Ainda tem que implementar">
-                            </div>
+                            <div class="col-md-8">
+                                    <label for="inputimg" class="form-label">Imagem</label>
+                                    <!-- Pré-visualização da imagem atual -->
+                                    <div class="mb-2">
+                                        <img id="edit_img_preview" src="" alt="Imagem atual" class="img-thumbnail" style="max-height:150px;">
+                                    </div>
+                                    <!-- Input para selecionar nova imagem -->
+                                    <input type="file" class="form-control" id="edit_imagem" name="imagem" accept="image/*">
+                                    <small class="text-muted">Selecione uma nova imagem para substituir a atual (opcional).</small>
+                                </div>
                             <div class="col-md-6">
                                 <label for="inputEmail" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="edit_email_user" name="email_user"

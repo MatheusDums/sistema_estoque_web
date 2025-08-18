@@ -16,12 +16,33 @@ if(empty($dados['id'])) {
         </div>"
     ];
 } else {
-    $editar = "UPDATE produtos SET nome=:nome, codigo=:codigo, estoque=:estoque, quantidade=:quantidade, 
+     $imagem = null;
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
+        $pasta = __DIR__ . "/../../assets/arquivos/uploads/";
+        $nomeArquivo = uniqid() . "-" . basename($_FILES['imagem']['name']);
+        $caminho = $pasta . $nomeArquivo;
+
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho)) {
+            $imagem = "assets/arquivos/uploads/" . $nomeArquivo;
+        }
+    }
+
+    if ($imagem) {
+        $editar = "UPDATE produtos 
+                   SET nome=:nome, codigo=:codigo, imagem=:imagem, estoque=:estoque, quantidade=:quantidade, 
+                       valor=:valor, categoria=:categoria, descricao=:descricao
+                   WHERE id = :id";
+    } else {
+        $editar = "UPDATE produtos SET nome=:nome, codigo=:codigo, estoque=:estoque, quantidade=:quantidade, 
     valor=:valor, categoria=:categoria, descricao=:descricao WHERE id = :id";
+    }
     $editar = $conn->prepare($editar);
     $editar->bindParam(':id', $dados['id']);
     $editar->bindParam(':nome', $dados['nome']);
     $editar->bindParam(':codigo', $dados['codigo']);
+    if ($imagem) {
+        $editar->bindParam(':imagem', $imagem);
+    }
     $editar->bindParam(':estoque', $dados['disponivel']);
     $editar->bindParam(':quantidade', $dados['quantidade']);
     $editar->bindParam(':valor', $dados['valor']);
