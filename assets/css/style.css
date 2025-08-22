@@ -63,3 +63,14 @@ body {
 .margin-auto {
     margin: auto;
 }
+
+/* help */
+
+.hideForm {
+    display: none;
+}
+
+
+.botoes {
+    margin-bottom: 15px;
+}
