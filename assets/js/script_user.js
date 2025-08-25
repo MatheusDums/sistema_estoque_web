@@ -38,7 +38,7 @@ $(document).ready(function () {
 });
 
 
-// cadastrar produtos
+// cadastrar usuario
     const new_user = document.getElementById("form_cadastro_user");
 
     if (new_user) {
