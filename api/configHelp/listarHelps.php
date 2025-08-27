@@ -47,7 +47,7 @@ $stmtFiltered->execute();
 $totalFiltrado = $stmtFiltered->fetch(PDO::FETCH_ASSOC)['total'];
 
 // Consulta final com LIMIT
-$listar = "SELECT id_help, user, assunto, area, nivel, status_help, descricao, imagem
+$listar = "SELECT id_help, user, assunto, area, nivel, status_help, descricao, imagem, contato
            FROM help 
            $where 
            ORDER BY $colunaOrdenar $orderDir 
@@ -70,6 +70,7 @@ while ($row_usuario = $result_listar->fetch(PDO::FETCH_ASSOC)) {
     $status = $row_usuario['status_help'];
     $descricap = $row_usuario['descricao'];
     $imagem = $row_usuario['imagem'];
+    $contato = $row_usuario['contato'];
     $registro = [];
     $registro[] = "#" . $id;
     $registro[] = $user;

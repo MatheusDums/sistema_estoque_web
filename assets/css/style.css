@@ -74,3 +74,27 @@ body {
 .botoes {
     margin-bottom: 15px;
 }
+
+/* notificação */
+
+.notification-link {
+    position: relative; /* referência para a bolinha */
+    display: flex;
+    align-items: center;
+}
+
+.notification-badge {
+    position: absolute;
+    right: 10px;   /* distância do final do link */
+    top: 50%;      /* centraliza verticalmente */
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid white; /* opcional */
+}
+
+.hiddenBagde {
+    display: none;
+}

@@ -16,6 +16,15 @@ $(document).ready(function () {
     });      
 });
 
+/* popover */
+
+document.addEventListener("DOMContentLoaded", function () {
+  var popoverTrigger = document.getElementById('usuarioPopover');
+  if (popoverTrigger) {
+    new bootstrap.Popover(popoverTrigger);
+  }
+});
+
 
 // cadastrar produtos
     const new_product = document.getElementById("form_cadastro");

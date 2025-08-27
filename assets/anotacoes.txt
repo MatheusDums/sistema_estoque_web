@@ -1,13 +1,6 @@
-para criptografar a senha em Base64 na criação do usuario
+a fazer:
+1. Configurações
+2. Sistema de notificações
+3. Perfil
 
-$senhaCrip = json_encode(
-                $dados_cadastro['senha'],
-            );
-    $senha = base64_encode($senhaCrip);
 
-para criptografar a senha em Base64 na atualização do usuario
-
-$senhaCrip = json_encode(
-                $dados['senha_user']
-            );
-    $senha = base64_encode($senhaCrip);

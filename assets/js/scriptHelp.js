@@ -53,6 +53,8 @@ $(document).ready(function () {
             new_user.reset();
             listarDataTable = $("#tabela").DataTable();
             listarDataTable.ajax.reload(null, false);
+            form_help.classList.add('hideForm');
+            botao.textContent = 'Adicionar Chamado';
             setTimeout(() => {
               document.getElementById("msgAlertHelp").innerHTML = "";
             }, 5000);
@@ -65,3 +67,30 @@ $(document).ready(function () {
 
         });
     }
+
+/* detalhes - modal */
+async function visUser(id) {
+  const dados = await fetch('../../api/configHelp/visualizarHelps.php?id=' + id);
+  const respostaVisualizar = await dados.json();
+
+  if (respostaVisualizar['status']) {
+    const visModal = new bootstrap.Modal(document.getElementById('visUserModalHelp'));
+    visModal.show();
+    document.getElementById("id_help").innerHTML = '#' + respostaVisualizar['dados'].id_help;
+    document.getElementById("nome_modal").innerHTML = respostaVisualizar['dados'].user;
+    document.getElementById("assunto_modal").innerHTML = respostaVisualizar['dados'].assunto;
+    document.getElementById("area_modal").innerHTML = respostaVisualizar['dados'].area;
+    document.getElementById("nivel_modal").innerHTML = respostaVisualizar['dados'].nivel;
+    document.getElementById("status_modal").innerHTML = respostaVisualizar['dados'].status_help;
+    document.getElementById("descricao_modal").innerHTML = respostaVisualizar['dados'].descricao;
+    document.getElementById("imgHelp").src = respostaVisualizar['dados'].imagem;
+    document.getElementById("contato_modal").innerHTML = respostaVisualizar['dados'].contato;
+
+  } else {
+    document.getElementById("msgAlertHelp").innerHTML = respostaVisualizar['message'];
+    setTimeout(() => {
+              document.getElementById("msgAlertHelp").innerHTML = "";
+            }, 5000);
+  }
+
+}
