@@ -16,15 +16,6 @@ $(document).ready(function () {
     });      
 });
 
-/* popover */
-
-document.addEventListener("DOMContentLoaded", function () {
-  var popoverTrigger = document.getElementById('usuarioPopover');
-  if (popoverTrigger) {
-    new bootstrap.Popover(popoverTrigger);
-  }
-});
-
 
 // cadastrar produtos
     const new_product = document.getElementById("form_cadastro");
@@ -175,3 +166,27 @@ async function deleteUser(id) {
     }
   }
 }
+
+// notificacoes
+$(document).ready(function () {
+    function atualizarBadge() {
+        $.ajax({
+            url: "api/configNot/listar.php", // raiz
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                const naoLidas = Array.isArray(data) ? data.filter(n => n.lida == 0).length : 0;
+                const $badge = $(".notification-badge");
+
+                if (naoLidas > 0) {
+                    $badge.removeClass("hiddenBadge");
+                } else {
+                    $badge.addClass("hiddenBadge");
+                }
+            }
+        });
+    }
+
+    atualizarBadge();
+    setInterval(atualizarBadge, 30000);
+});

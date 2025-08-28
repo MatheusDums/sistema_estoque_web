@@ -78,23 +78,25 @@ body {
 /* notificação */
 
 .notification-link {
-    position: relative; /* referência para a bolinha */
+    position: relative;
     display: flex;
     align-items: center;
+    padding-right: 35px;
 }
 
 .notification-badge {
     position: absolute;
-    right: 10px;   /* distância do final do link */
-    top: 50%;      /* centraliza verticalmente */
-    transform: translateY(-50%);
+    right: 20px;
+    top: 50%;
+    transform: translateY(-40%);
     width: 10px;
     height: 10px;
     background-color: red;
+    border: #f8f9fa solid 1.5px;
     border-radius: 50%;
-    border: 2px solid white; /* opcional */
 }
 
-.hiddenBagde {
-    display: none;
+.hiddenBadge {
+    display: none !important;
 }
+

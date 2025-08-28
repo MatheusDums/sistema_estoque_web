@@ -36,7 +36,7 @@
         <a href="#" class="notification-link">
             <i class="bi bi-bell"></i>
             <span>Notificações</span>
-            <span class="notification-badge"></span>
+            <span class="notification-badge hiddenBadge" id="notificationBadge"></span>
         </a>
         <a href="./exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
@@ -47,6 +47,9 @@
             <p>Notificações enviadas pelo sistema</p>
         </section>
 
+        <section id="notifications-feed">
+
+        </section>
         
 
     </main>
@@ -59,6 +62,6 @@
     <script src="../bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
     <script src="../js/datatables.min.js"></script>
     <script src="../js/script.js?v=<?= filemtime('../js/script.js') ?>"></script>
-    <script src="../js/scriptHelp.js?v=<?= filemtime('../js/scriptHelp.js') ?>"></script>
+    <script src="../js/scriptNot.js?v=<?= filemtime('../js/scriptNot.js') ?>"></script>
 </body>
 </html>
