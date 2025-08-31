@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Estoque - Futuras Impleemntações</title>
+    <link href="../bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/datatables.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+<body>
+    <!-- header -->
+    <nav class="navbar navbar-expand navbar-light navbar-custom">
+        <a class="btn btn-link me-3" id="toggleSidebar">
+            <i class="bi bi-list" style="color: black;"></i>
+        </a>
+
+        <a class="navbar-brand" href="../../index.html">Sistema de Estoque</a>
+
+        <div class="ms-auto  d-flex align-items-center gap-3">
+            <p class="text-dark text-center margin-auto">Bem vindo, <a style="text-decoration: none; color: black;"
+                    href="perfil.php"><b>Usuário</b></a></p>
+        </div>
+    </nav>
+
+    <!-- sidebar -->
+    <section class="sidebar" id="sidebar">
+        <a href="../../index.html"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
+        <a href="./usuarios.html"><i class="bi bi-people"></i><span> Usuários</span></a>
+        <a href="./configuracoes.html"><i class="bi bi-gear"></i><span> Configurações</span></a>
+        <a href="./help.html"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
+        <a href="./notificacoes.php" class="notification-link">
+            <i class="bi bi-bell"></i> Notificações
+            <span class="notification-badge hiddenBadge"></span>
+        </a>
+        <a href="#"><i class="bi bi-capslock"></i> Futuras Implementações</a>
+        <a href="exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
+    </section>
+
+    <!-- conteúdo principal -->
+    <main class="main-content" id="mainContent">
+        <section>
+            <h1>Futuras <b>Implementações</b>!</h1>
+            <p>Estamos em constante pesquisa e melhora em nosso sistema, deixe uma sugestão.</p>
+        </section>
+
+        <hr>
+
+        <section class="conteudo">
+            <h3><b>Melhorias</b> Previstas</h3>
+            <div class="list-projects">
+                <ul>
+                    <li>Geração de Qr Code de Produtos</li>
+                    <li>Níveis de Permissão</li>
+                    <li>Relatórios</li>
+                    <li>Tema Dark</li>
+                </ul>
+            </div>
+
+            <hr>
+            <div class="sugestoes">
+                <div class="titulo-form">
+                    <h2>Sugestões</h2>
+                    <p>Estamos sempre buscando melhorar a experiência para nosso usuários.</p>
+                </div>
+
+                <form class="row g-3" id="form-sugestoes">
+                    <div class="col-md-6">
+                        <label for="inputEmail4" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="Nome Completo">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword4" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="email@exemplo.com">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputAddress" class="form-label">Empresa</label>
+                        <input type="text" class="form-control" id="inputAddress"
+                            placeholder="Empresa que o sistema está implementado">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputState" class="form-label">Área de Implementação</label>
+                        <select id="inputState" class="form-select">
+                            <option selected>Selecione uma área</option>
+                            <option>Páginas do sistema (identificar qual página no campo "mensagem")</option>
+                            <option>Tabelas</option>
+                            <option>Layout</option>
+                            <option>Usabilidade</option>
+                            <option>Outros</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="inputAddress2" class="form-label">Mensagem</label>
+                        <textarea name="inputAddress2" id="inputAddress2" placeholder="Escreva a sua Sugestão"
+                            class="form-control" rows="4"></textarea>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <label for="inputCity" class="form-label">A</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputZip" class="form-label">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div> -->
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                Eu aceito enviar a sugestão para <a href="https://www.linkedin.com/in/matheuskauandums/" style="color:black; text-decoration: none;"><b>Matheus Dums</b></a> .
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Enviar Sugestão</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+
+
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
+    <script src="../js/datatables.min.js"></script>
+    <script src="../js/script.js?v=<?= filemtime('../js/script.js') ?>"></script>
+    <script src="../js/scriptImp.js?v=<?= filemtime('../js/scriptImp.js') ?>"></script>
+</body>
+
+</html>

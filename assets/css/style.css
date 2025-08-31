@@ -100,3 +100,38 @@ body {
     display: none !important;
 }
 
+
+/* Perfil */
+
+.infos {
+    display: flex;
+}
+
+.imagem-container {
+    overflow: hidden;
+}
+
+.imagem-quadrada {
+    display: flex;
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    margin: 30px 25px;
+}
+
+.dadosPerfil {
+    margin: 70px 0px 0px 150px;
+}
+
+.dados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 200px;
+    margin-bottom: 25px;
+}
+.dado {
+    display: flex;
+    flex-direction: column;
+}

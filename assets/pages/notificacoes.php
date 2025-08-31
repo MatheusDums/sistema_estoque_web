@@ -22,7 +22,7 @@
 
         <div class="ms-auto  d-flex align-items-center gap-3">
             <p class="text-dark text-center margin-auto">Bem vindo, <a style="text-decoration: none; color: black;"
-                    href="assets/pages/perfil.html"><b>Usuário</b></a></p>
+                    href="./perfil.php"><b>Usuário</b></a></p>
         </div>
     </nav>
 
@@ -38,6 +38,7 @@
             <span>Notificações</span>
             <span class="notification-badge hiddenBadge" id="notificationBadge"></span>
         </a>
+        <a href="./futuras.html"><i class="bi bi-capslock"></i> Futuras Implementações</a>
         <a href="./exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
   
