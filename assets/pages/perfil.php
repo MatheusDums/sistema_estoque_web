@@ -51,10 +51,16 @@
             <div class="infos"> 
                 <div class="fotoPerfil imagem-container">
                     <img class="imagem-quadrada" src="../arquivos/uploadsUsers/68a29808cf9b6-F6C46D34-23C4-4468-B07C-A2FCC26C400D (1).JPEG" alt="">
+
+                    <div class="social">
+                        <p><img class="logosSocial" style="height: 40px;" src="../images/icons/linkedin.svg" alt=""><span  class="social-users linkedin-user">MatheusKauanDums</span></p>
+                        <p><img class="logosSocial" style="height: 40px;" src="../images/icons/instagram.svg" alt=""><span class="social-users instagram-user">@_mdums</span></p>
+                        <p><img class="logosSocial" style="height: 40px;" src="../images/icons/whatsapp.svg" alt=""><span  class="social-users whatsapp-user">47 988200851</span></p>
+                    </div>
                 </div>
                 <div class="dadosPerfil">
                     <div class="dados">
-                        <div class="dado">
+                        <div class="dado">  
                             <h5 class="dadoTitle"><b>Nome Completo</b></h5>
                             <p class="dadoCont">Matheus Kauan Dums</p>
                         </div>
@@ -86,13 +92,27 @@
                         </div>
                     </div>
 
-                    <div class="configs">
-                        <div class="social">
+                    <div class="dados">
+                        <div class="dado">
+                            <h5 class="dadoTitle"><b>Data de Nascimento</b></h5>
+                            <p class="dadoCont">03/07/2004 (21 anos)</p>
+                        </div>
+                        <div class="dado">
+                            <h5 class="dadoTitle"><b>Empresa</b></h5>
+                            <p class="dadoCont">St. Troppez Technologies</p>
+                        </div>
+                    </div>
 
-                        </div>
-                        <div class="passChange">
+                    <div class="configs">
+                        <div class="btns-change">
                             
+                            <button class="btn btn-outline-secondary">Alterar senha</button>
+                            
+                            <button class="btn btn-outline-secondary">Alterar Foto de Perfil</button>
+                            
+                            <button class="btn btn-outline-secondary">Alterar Dados de Usuário</button>
                         </div>
+                        
                     </div>
                     
 

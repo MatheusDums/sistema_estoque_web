@@ -56,11 +56,15 @@
                     <li>Níveis de Permissão</li>
                     <li>Relatórios</li>
                     <li>Tema Dark</li>
+                    <li>Suas Sugestões</li>
                 </ul>
             </div>
 
             <hr>
             <div class="sugestoes">
+                <div class="SugestoesCampoAlerta">
+                    <span id="campoAlertaSugestoes"></span>
+                </div>
                 <div class="titulo-form">
                     <h2>Sugestões</h2>
                     <p>Estamos sempre buscando melhorar a experiência para nosso usuários.</p>
@@ -68,21 +72,21 @@
 
                 <form class="row g-3" id="form-sugestoes">
                     <div class="col-md-6">
-                        <label for="inputEmail4" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="Nome Completo">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome Completo">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="inputPassword4" placeholder="email@exemplo.com">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="email@exemplo.com">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputAddress" class="form-label">Empresa</label>
-                        <input type="text" class="form-control" id="inputAddress"
+                        <label for="empresa" class="form-label">Empresa</label>
+                        <input type="text" class="form-control" id="empresa" name="empresa"
                             placeholder="Empresa que o sistema está implementado">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputState" class="form-label">Área de Implementação</label>
-                        <select id="inputState" class="form-select">
+                        <label for="area" class="form-label">Área de Implementação</label>
+                        <select id="area" class="form-select" name="area"">
                             <option selected>Selecione uma área</option>
                             <option>Páginas do sistema (identificar qual página no campo "mensagem")</option>
                             <option>Tabelas</option>
@@ -92,8 +96,8 @@
                         </select>
                     </div>
                     <div class="col-12">
-                        <label for="inputAddress2" class="form-label">Mensagem</label>
-                        <textarea name="inputAddress2" id="inputAddress2" placeholder="Escreva a sua Sugestão"
+                        <label for="mensagem" class="form-label">Mensagem</label>
+                        <textarea name="mensagem" id="mensagem" placeholder="Escreva a sua Sugestão"
                             class="form-control" rows="4"></textarea>
                     </div>
                     <!-- <div class="col-md-6">
@@ -106,8 +110,8 @@
                     </div> -->
                     <div class="col-12">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
+                            <input class="form-check-input" type="checkbox" id="checkbox_aceito" name="checkbox_aceito">
+                            <label class="form-check-label" for="checkbox_aceito">
                                 Eu aceito enviar a sugestão para <a href="https://www.linkedin.com/in/matheuskauandums/" style="color:black; text-decoration: none;"><b>Matheus Dums</b></a> .
                             </label>
                         </div>
