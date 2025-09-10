@@ -29,8 +29,8 @@ if(empty($dados_cadastro['cadastro']) || empty($dados_cadastro['nome'])
 
     $senha = password_hash($dados_cadastro['senha'], PASSWORD_DEFAULT);
 
-    $cadastrar = "INSERT INTO usuarios (cadastro, nome, imagem, user, senha, email, telefone, cargo) 
-     VALUES (:cadastro, :nome, :imagem, :user, :senha, :email, :telefone, :cargo)";
+    $cadastrar = "INSERT INTO usuarios (cadastro, nome, imagem, user, senha, email, telefone, cargo, empresa) 
+     VALUES (:cadastro, :nome, :imagem, :user, :senha, :email, :telefone, :cargo, :empresa)";
     $result_cadastrar = $conn->prepare($cadastrar);
     $result_cadastrar->bindParam(':cadastro', $dados_cadastro['cadastro']);
     $result_cadastrar->bindParam(':nome', $dados_cadastro['nome']);
@@ -40,6 +40,7 @@ if(empty($dados_cadastro['cadastro']) || empty($dados_cadastro['nome'])
     $result_cadastrar->bindParam(':email', $dados_cadastro['email']);
     $result_cadastrar->bindParam(':telefone', $dados_cadastro['telefone']);
     $result_cadastrar->bindParam(':cargo', $dados_cadastro['cargo']);
+    $result_cadastrar->bindParam(':empresa', $dados_cadastro['empresa']);
     $result_cadastrar->execute();
 
     if($result_cadastrar->rowCount()){

@@ -92,6 +92,7 @@ async function visUser(id) {
     document.getElementById("email").innerHTML = respostaVisualizar['dados'].email
     document.getElementById("telefone").innerHTML = respostaVisualizar['dados'].telefone;
     document.getElementById("cargo").innerHTML = respostaVisualizar['dados'].cargo;
+    document.getElementById("empresa").innerHTML = respostaVisualizar['dados'].empresa;
 
   } else {
     document.getElementById("msgAlertusuarios").innerHTML = respostaVisualizar['message'];

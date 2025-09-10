@@ -107,13 +107,9 @@
                                 <label for="inputCadastro" class="form-label">Cadastro</label>
                                 <input type="text" class="form-control" id="inputCadastro" placeholder="Matrícula" name="cadastro">
                             </div>
-                            <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkUsers">
-                                    <label class="form-check-label" for="checkUsers">
-                                        Checkbox para teste
-                                    </label>
-                                </div>
+                            <div class="col-md-12">
+                                <label for="inputEmpresa" class="form-label">Empresa</label>
+                                <input type="text" class="form-control" id="inputEmpresa" placeholder="Matrícula" name="empresa">
                             </div>
                             <hr>
                             <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
@@ -146,6 +142,10 @@
             </table>
 
         </section>
+
+        <footer>
+        © 2025   <a style="text-decoration: none; color: black; font-weight: bold;" href="https://www.linkedin.com/in/matheuskauandums/" target="_blank">Matheus Kauan Dums</a> - Sistema de Estoque v.1.0.0<!--  - All Rights Reserved. -->
+        </footer>
     </main>
 
 <!-- modais extras -->
@@ -193,9 +193,13 @@
                                     <dt class="fw-bold ">Telefone</dt>
                                     <dd class="text-dark"><span id="telefone"></span></dd>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-md-6">
                                     <dt class="fw-bold ">Cargo</dt>
                                     <dd class="text-dark"><span id="cargo"></span></dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt class="fw-bold ">Empresa</dt>
+                                    <dd class="text-dark"><span id="empresa"></span></dd>
                                 </div>
 
                                 <hr>
@@ -254,7 +258,7 @@
                                     <!-- Input para selecionar nova imagem -->
                                     <input type="file" class="form-control" id="edit_imagem" name="imagem" accept="image/*">
                                     <small class="text-muted">Selecione uma nova imagem para substituir a atual (opcional).</small>
-                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <label for="inputEmail" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="edit_email_user" name="email_user"
