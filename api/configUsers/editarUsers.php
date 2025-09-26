@@ -38,7 +38,7 @@ if(empty($dados['id_user'])) {
     email=:email, telefone=:telefone, cargo=:cargo WHERE id = :id";
     }
 
-    $senha = password_hash($dados['senha_user'], PASSWORD_DEFAULT);
+    /* $senha = password_hash($dados['senha_user'], PASSWORD_DEFAULT); */
     $editar = $conn->prepare($editar);
     $editar->bindParam(':id', $dados['id_user']);
     $editar->bindParam(':cadastro', $dados['cadastro_user']);
@@ -47,7 +47,7 @@ if(empty($dados['id_user'])) {
         $editar->bindParam(':imagem', $imagem);
     }
     $editar->bindParam(':user', $dados['usuario_user']);
-    $editar->bindParam(':senha', $senha);
+    $editar->bindParam(':senha', $dados['senha_user']);
     $editar->bindParam(':email', $dados['email_user']);
     $editar->bindParam(':telefone', $dados['telefone_user']);
     $editar->bindParam(':cargo', $dados['cargo_user']);

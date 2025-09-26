@@ -161,3 +161,88 @@ footer {
     text-align: end;
     font-size: .8rem;
 }
+
+/* form alterar senha */
+/* Centraliza e limita a largura do conteúdo do modal de senha */
+#ModalAlterarSenha .col-md-6 {
+    margin: 0 auto;
+    float: none;
+    padding: 24px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+}
+
+#ModalAlterarSenha label {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+#ModalAlterarSenha .input-group {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 16px;
+}
+
+#ModalAlterarSenha hr {
+    width: 100%;
+    margin: 18px 0;
+}
+
+#ModalAlterarSenha .btn-outline-primary,
+#ModalAlterarFoto .btn-outline-primary {
+    width: 100%;
+    max-width: 200px;
+    margin: 18px auto 0 auto;
+    display: block;
+}
+
+#ModalAlterarSenha .btn-outline-secondary {
+    min-width: 44px;
+}
+
+#ModalAlterarSenha .msgAlertSenha {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 500px) {
+    #ModalAlterarSenha .col-md-6,
+    #ModalAlterarSenha .input-group {
+        max-width: 100%;
+    }
+}
+
+/* Login.php */
+
+.login_card {
+    width: 30%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.47);
+    }
+
+.card_body {
+    padding: 10px 0px 20px 0px;
+    width: 80%;
+}
+
+#loginForm {
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}

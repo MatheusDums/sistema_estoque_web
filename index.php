@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['nome'] ?? 'Usuário';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -22,28 +31,26 @@
 
         <div class="ms-auto  d-flex align-items-center gap-3">
             <p class="text-dark text-center margin-auto">Bem vindo, <a style="text-decoration: none; color: black;"
-                    href="assets/pages/perfil.php"><b>Usuário</b></a></p>
+                    href="assets/pages/perfil.php"><b><?php echo $username; ?></b></a></p>
         </div>
     </nav>
 
     <!-- sidebar -->
     <section class="sidebar" id="sidebar">
-        <!--<a href="../../index.html"><i class="bi bi-speedometer2"></i><span> Produtos</span></a> -->
+        <!--<a href="../../index.php"><i class="bi bi-speedometer2"></i><span> Produtos</span></a> -->
         <a href="#"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
-        <a href="assets/pages/usuarios.html"><i class="bi bi-people"></i><span> Usuários</span></a>
-        <a href="assets/pages/configuracoes.html"><i class="bi bi-gear"></i><span> Configurações</span></a>
-        <a href="assets/pages/help.html"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
+        <a href="assets/pages/usuarios.php"><i class="bi bi-people"></i><span> Usuários</span></a>
+        <a href="assets/pages/configuracoes.php"><i class="bi bi-gear"></i><span> Configurações</span></a>
+        <a href="assets/pages/help.php"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
         <a href="assets/pages/notificacoes.php" class="notification-link">
-            <i class="bi bi-bell"></i> Notificações
-            <span class="notification-badge hiddenBadge"></span>
-        </a>       
-        <a href="assets/pages/futuras.html"><i class="bi bi-capslock"></i> Futuras Implementações</a>
+            <i class="bi bi-bell"></i> <span>Notificações</span><span class="notification-badge hiddenBadge"></span></a>       
+        <a href="assets/pages/futuras.php"><i class="bi bi-capslock"></i> <span>Futuras Implementações</span></a>
         <a href="assets/pages/exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
 
     <main class="main-content" id="mainContent">
         <section class="main_text">
-            <h1>Bem-vindo, <b>User</b>!</h1>
+            <h1>Bem-vindo, <b><?php echo $username; ?></b>!</h1>
             <p>Aqui vai ficar a listagem de produtos.</p>
         </section>
 
@@ -110,10 +117,7 @@
 
                                 <div class="col-md-8">
                                     <label for="inputcategoria" class="form-label">Categoria</label>
-                                    <select id="inputcategoria" class="form-select" name="categoria">
-                                        <option value="categoria" selected>Categoria</option>
-                                        <option value="...">...</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="inputcategoria" name="categoria" list="categoriasList" placeholder="Digite ou selecione uma categoria">
                                 </div>
 
                                 <div class="col-md-4">
@@ -122,14 +126,6 @@
                                         placeholder="0">
                                 </div>
 
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="gridCheck" name="estoque" value="fora">
-                                        <label class="form-check-label" for="gridCheck">
-                                            Fora de estoque
-                                        </label>
-                                    </div>
-                                </div>
                                 <hr>
                                 <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -266,11 +262,8 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="inputcategoria" class="form-label">Categoria</label>
-                                    <select id="edit_categoria" class="form-select" name="categoria">
-                                        <option value="categoria" selected>Categoria</option>
-                                        <option value="...">...</option>
-                                    </select>
+                                    <label for="edit_categoria" class="form-label">Categoria</label>
+                                    <input type="text" class="form-control" id="edit_categoria" name="categoria" list="categoriasList" placeholder="Digite ou selecione uma categoria">
                                 </div>
 
                                 <div class="col-md-2">
@@ -279,14 +272,6 @@
                                         placeholder="0">
                                 </div>
 
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="edit_estoque" name=estoque" value="fora">
-                                        <label class="form-check-label" for="gridCheck">
-                                            Fora de estoque
-                                        </label>
-                                    </div>
-                                </div>
                                 <hr>
                                 <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>

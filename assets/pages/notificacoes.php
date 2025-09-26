@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,23 +30,20 @@
 
         <div class="ms-auto  d-flex align-items-center gap-3">
             <p class="text-dark text-center margin-auto">Bem vindo, <a style="text-decoration: none; color: black;"
-                    href="./perfil.php"><b>Usuário</b></a></p>
+                    href="./perfil.php"><b><?php echo $_SESSION['nome']; ?></b></a></p>
         </div>
     </nav>
 
     <!-- sidebar -->
     <section class="sidebar" id="sidebar">
-        <!--<a href="../../index.html"><i class="bi bi-speedometer2"></i><span> Produtos</span></a> -->
-        <a href="../../index.html"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
-        <a href="./usuarios.html"><i class="bi bi-people"></i><span> Usuários</span></a>
-        <a href="./configuracoes.html"><i class="bi bi-gear"></i><span> Configurações</span></a>
-        <a href="./help.html"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
-        <a href="#" class="notification-link">
-            <i class="bi bi-bell"></i>
-            <span>Notificações</span>
-            <span class="notification-badge hiddenBadge" id="notificationBadge"></span>
-        </a>
-        <a href="./futuras.html"><i class="bi bi-capslock"></i> Futuras Implementações</a>
+        <!--<a href="../../index.php"><i class="bi bi-speedometer2"></i><span> Produtos</span></a> -->
+        <a href="../../index.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
+        <a href="./usuarios.php"><i class="bi bi-people"></i><span> Usuários</span></a>
+        <a href="./configuracoes.php"><i class="bi bi-gear"></i><span> Configurações</span></a>
+        <a href="./help.php"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
+        <a href="./notificacoes.php" class="notification-link">
+            <i class="bi bi-bell"></i> <span>Notificações</span><span class="notification-badge hiddenBadge"></span></a>       
+        <a href="./futuras.php"><i class="bi bi-capslock"></i> <span>Futuras Implementações</span></a>
         <a href="./exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
   

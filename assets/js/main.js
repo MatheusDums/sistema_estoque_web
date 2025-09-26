@@ -1,3 +1,25 @@
+// Função para aplicar alerta visual na tabela de produtos
+function aplicarAlertaEstoque() {
+  $('#tabela tbody tr').each(function() {
+    const quantidade = parseInt($(this).find('td:eq(3)').text(), 10);
+    const estoque = $(this).find('td:eq(2)').text().trim().toLowerCase();
+    if (quantidade === 0 || estoque === 'não') {
+      $(this).addClass('table-danger');
+    } else {
+      $(this).removeClass('table-danger');
+    }
+  });
+}
+
+// Chamar após atualizar a tabela 
+$(document).ready(function() {
+  if ($.fn.DataTable) {
+    $('#tabela').on('draw.dt', function() {
+      aplicarAlertaEstoque();
+    });
+  }
+  aplicarAlertaEstoque();
+});
 $(document).ready(function () {
     $("#tabela").DataTable({
         columnDefs: [{
@@ -92,14 +114,33 @@ async function editUser(id) {
     editModal.show();
     document.getElementById("edit_id").value = respostaEditar['dados'].id;
     document.getElementById("edit_nome").value = respostaEditar['dados'].nome;
-    document.getElementById("edit_codigo").value = respostaEditar['dados'].codigo
+    document.getElementById("edit_codigo").value = respostaEditar['dados'].codigo;
     document.getElementById("edit_img_preview").src = respostaEditar['dados'].imagem || '';
-    document.getElementById("edit_estoque").value = respostaEditar['dados'].estoque;
     document.getElementById("edit_quantidade").value = respostaEditar['dados'].quantidade;
-    document.getElementById("edit_valor").value = respostaEditar['dados'].valor
+    document.getElementById("edit_valor").value = respostaEditar['dados'].valor;
     document.getElementById("edit_categoria").value = respostaEditar['dados'].categoria;
-    document.getElementById("edit_descricao").value = respostaEditar['dados'].descricao
+    document.getElementById("edit_descricao").value = respostaEditar['dados'].descricao;
 
+    // Preencher select Disponível
+    const disponivel = respostaEditar['dados'].disponivel ? respostaEditar['dados'].disponivel.toLowerCase() : '';
+    const selectDisponivel = document.getElementById("edit_disponivel");
+    if (selectDisponivel) {
+      if (disponivel === 'sim') {
+        selectDisponivel.value = 'Sim';
+      } else {
+        selectDisponivel.value = 'Não';
+      }
+    }
+
+    // Preencher checkbox Fora de estoque
+    const checkboxEstoque = document.getElementById("edit_estoque");
+    if (checkboxEstoque) {
+      // Considera marcado se valor for 'fora', 'não', 0 ou false
+      const estoqueValor = respostaEditar['dados'].estoque ? respostaEditar['dados'].estoque.toString().toLowerCase() : '';
+      checkboxEstoque.checked = (estoqueValor === 'fora' || estoqueValor === 'não' || estoqueValor === '0' || estoqueValor === 'false');
+    }
+
+    // Imagem preview
     const preview = document.getElementById("edit_img_preview");
     if (respostaEditar['dados'].imagem && respostaEditar['dados'].imagem !== "") {
         preview.src = respostaEditar['dados'].imagem; 
@@ -109,8 +150,8 @@ async function editUser(id) {
   } else {
     document.getElementById("msgAlertErroListar").innerHTML = respostaEditar['message'];
     setTimeout(() => {
-              document.getElementById("msgAlertErroListar").innerHTML = "";
-            }, 5000);
+      document.getElementById("msgAlertErroListar").innerHTML = "";
+    }, 5000);
   }
 }
 

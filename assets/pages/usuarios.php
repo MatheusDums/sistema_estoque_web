@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -17,26 +25,24 @@
         <a class="btn btn-link me-3" id="toggleSidebar">
             <i class="bi bi-list" style="color: black;"></i>
         </a>
-        <a class="navbar-brand" href="../../index.html">Sistema de Estoque</a>
+        <a class="navbar-brand" href="../../index.php">Sistema de Estoque</a>
         <div class="ms-auto  d-flex align-items-center gap-3">
             <p class="text-dark text-center margin-auto"> Bem vindo, <a href="./perfil.php" style="text-decoration: none; color: black;">
                 <b id="usuarioPopover"  data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
-                 data-bs-content="Aqui você acessa seu perfil e configurações">Usuário</b></a>
+                 data-bs-content="Aqui você acessa seu perfil e configurações"><?php echo $_SESSION['nome']; ?></b></a>
             </p>
         </div>
     </nav>
 
     <!-- sidebar -->
     <section class="sidebar" id="sidebar">
-        <a href="../../index.html"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
+        <a href="../../index.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
         <a href="#"><i class="bi bi-people"></i><span> Usuários</span></a>
-        <a href="./configuracoes.html"><i class="bi bi-gear"></i><span> Configurações</span></a>
-        <a href="./help.html"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
+        <a href="./configuracoes.php"><i class="bi bi-gear"></i><span> Configurações</span></a>
+        <a href="./help.php"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
         <a href="./notificacoes.php" class="notification-link">
-            <i class="bi bi-bell"></i> Notificações
-            <span class="notification-badge hiddenBadge"></span>
-        </a>
-        <a href="./futuras.html"><i class="bi bi-capslock"></i> Futuras Implementações</a>
+            <i class="bi bi-bell"></i> <span>Notificações</span><span class="notification-badge hiddenBadge"></span></a>       
+        <a href="assets/pages/futuras.php"><i class="bi bi-capslock"></i> <span>Futuras Implementações</span></a>
         <a href="exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
 
@@ -109,7 +115,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label for="inputEmpresa" class="form-label">Empresa</label>
-                                <input type="text" class="form-control" id="inputEmpresa" placeholder="Matrícula" name="empresa">
+                                <input type="text" class="form-control" id="inputEmpresa" placeholder="Empresa" name="empresa">
                             </div>
                             <hr>
                             <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
