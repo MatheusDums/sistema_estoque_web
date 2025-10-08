@@ -60,6 +60,7 @@ Ha vários fatores que poderiam ser melhorados no código, como a orientação a
 
 
 ## Screenshots
+ - Tela Inicial:
 
 ![Página Inicial](https://github.com/user-attachments/assets/bb50d6cc-b417-4ec9-a2f5-83be6f052b52)
 
