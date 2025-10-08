@@ -103,6 +103,90 @@ $(document).ready(function () {
         });
     });
 
+    /* Ler todas as Notificações */
+    const NotifMessages = document.querySelector('.NotifMessages');
+    window.readNotifications = function() {
+        $.ajax({
+            url: "../../api/configNot/lerTodas.php",
+            method: "POST",
+            dataType: "json",
+            success: function (r) {
+                if (r.status) {
+                    $(".notification-item.alert-warning").removeClass("alert-warning").addClass("alert-secondary");
+                    $("#notificationBadge").addClass("hiddenBadge").text("");
+
+                    atualizarBadge(0);
+
+                    if (NotifMessages) {
+                        NotifMessages.innerHTML = `<hr><div class="alert alert-success">${r.msg}</div>`;
+                        setTimeout(() => {
+                            NotifMessages.innerHTML = "";
+                        }, 5000);
+                    }
+
+                    carregarNotificacoes();
+                } else {
+                    if (NotifMessages) {
+                        NotifMessages.innerHTML = `<hr><div class="alert alert-danger">${r.msg}</div>`;
+                        setTimeout(() => {
+                            NotifMessages.innerHTML = "";
+                        }, 5000);
+                    }
+                }
+            },
+            error: function(error) {
+                console.error("Erro na requisição AJAX:", error);
+                if (NotifMessages) {
+                    NotifMessages.innerHTML = `<hr><div class="alert alert-danger">Erro ao comunicar com o servidor.</div>`;
+                    setTimeout(() => {
+                        NotifMessages.innerHTML = "";
+                    }, 5000);
+                }
+            }
+        });
+    }
+
+    window.deleteNotifications = function() {
+        $.ajax({
+            url: "../../api/configNot/apagarTodas.php",
+            method: "POST",
+            dataType: "json",
+            success: function (r) {
+                if (r.status) {
+                    $(".notification-item.alert-warning").removeClass("alert-warning").addClass("alert-secondary");
+                    $("#notificationBadge").addClass("hiddenBadge").text("");
+
+                    atualizarBadge(0);
+
+                    if (NotifMessages) {
+                        NotifMessages.innerHTML = `<hr><div class="alert alert-success">${r.msg}</div>`;
+                        setTimeout(() => {
+                            NotifMessages.innerHTML = "";
+                        }, 5000);
+                    }
+
+                    carregarNotificacoes();
+                } else {
+                    if (NotifMessages) {
+                        NotifMessages.innerHTML = `<hr><div class="alert alert-danger">${r.msg}</div>`;
+                        setTimeout(() => {
+                            NotifMessages.innerHTML = "";
+                        }, 5000);
+                    }
+                }
+            },
+            error: function(error) {
+                console.error("Erro na requisição AJAX:", error);
+                if (NotifMessages) {
+                    NotifMessages.innerHTML = `<hr><div class="alert alert-danger">Erro ao comunicar com o servidor.</div>`;
+                    setTimeout(() => {
+                        NotifMessages.innerHTML = "";
+                    }, 5000);
+                }
+            }
+        });
+    }
+
     carregarNotificacoes();
     setInterval(carregarNotificacoes, 30000);
 });

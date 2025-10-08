@@ -41,7 +41,25 @@ if(empty($dados_cadastro['nome']) || empty($dados_cadastro['codigo'])
     $result_cadastrar->bindParam(':descricao', $dados_cadastro['descricao']);
     $result_cadastrar->execute();
 
-    if($result_cadastrar->rowCount()){
+    if($result_cadastrar->execute()) {
+        if (isset($dados_cadastro['quantidade']) && intval($dados_cadastro['quantidade']) < 3) {
+            if (isset($dados_cadastro['quantidade']) && intval($dados_cadastro['quantidade'])  < 1) {
+                $titulo = "Estoque Baixo";
+                $mensagem = "O produto <b>" . $dados_cadastro['nome'] . "</b> está <b>sem unidades em estoque</b>";
+                $inserirNotificacao = $conn->prepare("INSERT INTO notificacoes (titulo, mensagem) VALUES (:titulo, :mensagem)");
+                $inserirNotificacao->bindParam(':titulo', $titulo);
+                $inserirNotificacao->bindParam(':mensagem', $mensagem);
+                $inserirNotificacao->execute();
+            } else {
+                $titulo = "Estoque Baixo";
+                $mensagem = "O produto <b>" . $dados_cadastro['nome'] . "</b> está com estoque <b>baixo</b>. (" . $dados_cadastro['quantidade'] . " unidades restantes).";
+                $inserirNotificacao = $conn->prepare("INSERT INTO notificacoes (titulo, mensagem) VALUES (:titulo, :mensagem)");
+                $inserirNotificacao->bindParam(':titulo', $titulo);
+                $inserirNotificacao->bindParam(':mensagem', $mensagem);
+                $inserirNotificacao->execute();
+            }
+            
+        }
         $resposta = [
             "status" => true,
             "message" => "<div class='alert alert-success alert-dismissible fade show' role='alert'>

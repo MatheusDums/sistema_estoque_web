@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistema de Estoque</title>
-    <link href="assets/bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login - Administração</title>
+    <link href="../assets/bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/datatables.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/datatables.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body class="body_login">
     <main >
@@ -17,24 +17,24 @@
             <div class="login_card">
                 <div class="card_body">
 
-                    <img src="assets/images/imagens/icon.png" alt="" style="height: 170px;">
+                    <img src="../assets/images/imagens/icon.png" alt="" style="height: 170px;">
 
-                    <h3 class="card-title text-center mb-4">Sistema de Estoque - Login</h3>
+                    <h3 class="card-title text-center mb-4">Administração - Login</h3>
 
                     <div class="AlertLogin">
                         <?php
-                        session_start();
+                        /* session_start();
                         if(isset($_SESSION['msg_login'])){
                             echo $_SESSION['msg_login'];
                             unset($_SESSION['msg_login']);
-                        }
+                        } */
                         ?>
                     </div>
 
-                    <form method="POST" action="api/configLogin/authenticate.php">
+                    <form method="POST" action="../api/configAdmin/authenticateAdm.php">
 
                         <div class="mb-3">
-                            <label for="username" class="form-label">Usuário ou Matrícula</label>
+                            <label for="username" class="form-label">Usuário</label>
                             <input type="text" class="form-control" id="username" name="username" required>
                         </div>
                         <div class="mb-3">
@@ -51,7 +51,7 @@
                     </form>
 
                     <div class="forgetPass" style="margin-top: 15px;">
-                        <a href="assets/pages/forgetpass.php" style="color: black; text-decoration: none;">Esqueci a minha senha</a>
+                        <a href="../index.php" style="color: black; text-decoration: none;">Voltar ao Sistema de Estoque</a>
                     </div>
                     
                 </div>
@@ -62,10 +62,10 @@
 
     </main>
 
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <script src="assets/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/datatables.min.js"></script>
-    <script src="assets/js/loginScript.js?v=<?= filemtime('assets/js/loginScript.js') ?>"></script>
+    <script src="../assets/js/jquery-3.7.1.min.js"></script>
+    <script src="../assets/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
+    <script src="../assets/js/datatables.min.js"></script>
+    <script src="../assets/js/loginScript.js?v=<?= filemtime('../assets/js/loginScript.js') ?>"></script>
 
 </body>
 

@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../api/config/check_auth.php';
+
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     header("Location: login.php");
     exit();
@@ -34,13 +35,13 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
 
     <!-- sidebar -->
     <section class="sidebar" id="sidebar">
-        <a href="../../index.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
+        <a href="../../produtos.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
         <a href="./usuarios.php"><i class="bi bi-people"></i><span> Usuários</span></a>
         <a href="./configuracoes.php"><i class="bi bi-gear"></i><span> Configurações</span></a>
         <a href="./help.php"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
         <a href="./notificacoes.php" class="notification-link">
             <i class="bi bi-bell"></i> <span>Notificações</span><span class="notification-badge hiddenBadge"></span></a>       
-        <a href="assets/pages/futuras.php"><i class="bi bi-capslock"></i> <span>Futuras Implementações</span></a>
+        <a href="./futuras.php"><i class="bi bi-capslock"></i> <span>Futuras Implementações</span></a>
         <a href="exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
     </section>
 
@@ -197,7 +198,7 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
 
         
         <footer>
-        © 2025   <a style="text-decoration: none; color: black; font-weight: bold;" href="https://www.linkedin.com/in/matheuskauandums/" target="_blank">Matheus Kauan Dums</a> - Sistema de Estoque v.1.0.0<!--  - All Rights Reserved. -->
+        © 2025   <a style="text-decoration: none; color: black; font-weight: bold;" href="https://linktr.ee/matheusdums" target="_blank">Matheus Kauan Dums</a> - Sistema de Estoque v.1.0.0<!--  - All Rights Reserved. -->
         </footer>
 
     </main>

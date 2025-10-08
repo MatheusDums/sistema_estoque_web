@@ -1,11 +1,15 @@
 <?php
-session_start();
+require_once __DIR__ . '/api/config/check_auth.php';
+require_once __DIR__ . '/api/configMain/buscaDados.php';
+include_once 'api/configAdmin/listarRecados.php';
+$recados = listarRecados($conn);
+
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     header("Location: login.php");
     exit();
 }
 
-$username = $_SESSION['nome'] ?? 'Usuário';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -31,14 +35,13 @@ $username = $_SESSION['nome'] ?? 'Usuário';
 
         <div class="ms-auto  d-flex align-items-center gap-3">
             <p class="text-dark text-center margin-auto">Bem vindo, <a style="text-decoration: none; color: black;"
-                    href="assets/pages/perfil.php"><b><?php echo $username; ?></b></a></p>
+                    href="assets/pages/perfil.php"><b><?php echo $_SESSION['nome']; ?></b></a></p>
         </div>
     </nav>
 
     <!-- sidebar -->
     <section class="sidebar" id="sidebar">
-        <!--<a href="../../index.php"><i class="bi bi-speedometer2"></i><span> Produtos</span></a> -->
-        <a href="#"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
+        <a href="produtos.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
         <a href="assets/pages/usuarios.php"><i class="bi bi-people"></i><span> Usuários</span></a>
         <a href="assets/pages/configuracoes.php"><i class="bi bi-gear"></i><span> Configurações</span></a>
         <a href="assets/pages/help.php"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
@@ -50,264 +53,66 @@ $username = $_SESSION['nome'] ?? 'Usuário';
 
     <main class="main-content" id="mainContent">
         <section class="main_text">
-            <h1>Bem-vindo, <b><?php echo $username; ?></b>!</h1>
-            <p>Aqui vai ficar a listagem de produtos.</p>
+            <h1>Bem-vindo, <b><?php echo $_SESSION['nome']; ?></b>!</h1>
+            <p>Bem-vindo ao seu sistema de Estoque.</p>
         </section>
 
-        <section class="botoes">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cadastrar">
-                Cadastrar Produto
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="modal_cadastrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-white">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastro de Produto</h1>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <span id="msgAlertErroCad">
-                            </span>
-                            <form class="row g-3" method="POST" id="form_cadastro" enctype="multipart/form-data">
-                                <input type="hidden" id="id" name="id">
-                                <div class="col-md-6">
-                                    <label for="inputname" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="inputname" name="nome"
-                                        placeholder="Nome do produto">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="inputcode" class="form-label">Código</label>
-                                    <input type="text" class="form-control" id="inputcode" name="codigo"
-                                        placeholder="Código do produto">
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="inputdesc" class="form-label">Descrição</label>
-                                    <input type="text" class="form-control" id="inputdesc" name="descricao"
-                                        placeholder="Descrição do produto">
-                                </div>
-
-                                <!-- <div class="col-md-8">
-                                    <label for="inputimg" class="form-label">Imagem</label>
-                                    <input type="text" class="form-control" id="inputimg" name="imagem" disabled
-                                        placeholder="Ainda tem que implementar">
-                                </div> -->
-
-                                <div class="col-md-12">
-                                    <label for="imagem" class="form-label">Imagem do Produto</label>
-                                    <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="inputdisponivel" class="form-label">Disponível</label>
-                                    <select id="inputdisponivel" class="form-select" name="disponivel">
-                                        <option value="Sim" selected>Sim</option>
-                                        <option value="Não">Não</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="inputprice" class="form-label">Valor Unitário (R$)</label>
-                                    <input type="text" class="form-control" id="inputprice" name="valor"
-                                        placeholder="R$00,00">
-                                </div>
-
-                                <div class="col-md-8">
-                                    <label for="inputcategoria" class="form-label">Categoria</label>
-                                    <input type="text" class="form-control" id="inputcategoria" name="categoria" list="categoriasList" placeholder="Digite ou selecione uma categoria">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="inputquant" class="form-label">Quant.</label>
-                                    <input type="number" class="form-control" id="inputquant" name="quantidade"
-                                        placeholder="0">
-                                </div>
-
-                                <hr>
-                                <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
-                                </div>
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- modal de detalhes -->
-            <div class="modal fade" id="visUserModal" tabindex="-1" aria-labelledby="visUserModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md modal-dialog-centered">
-                    <div class="modal-content shadow-lg border-0">
-
-                        <!-- Cabeçalho -->
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="visUserModalLabel">
-                                <i class="bi bi-box-seam me-2"></i> Detalhes do Produto
-                            </h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                        </div>
-
-                        <!-- Corpo -->
-                        <div class="modal-body">
-                            <dl class="row g-3">
-                                <div class="col-12 text-center">
-                                    <img id="imgProduto" src="" class="img-fluid rounded" alt="Imagem do Produto" style="height: 200px;">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="hidden" id="list_id" name="id">
-                                    <dt class="fw-bold ">Código</dt>
-                                    <dd class="text-dark"><span id="codigo"></span></dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt class="fw-bold ">Nome</dt>
-                                    <dd class="text-dark"><span id="nome"></span></dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt class="fw-bold ">Estoque</dt>
-                                    <dd class="text-dark"><span id="estoque"></span></dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt class="fw-bold ">Quantidade em Estoque</dt>
-                                    <dd class="text-dark"><span id="quantidade"></span></dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt class="fw-bold ">Valor Unitário</dt>
-                                    <dd class="text-dark"><span id="valor"></span></dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt class="fw-bold ">Categoria</dt>
-                                    <dd class="text-dark"><span id="categoria"></span></dd>
-                                </div>
-                                <div class="col-12">
-                                    <dt class="fw-bold ">Descrição</dt>
-                                    <dd class="text-dark"><span id="descricao"></span></dd>
-                                </div>
-
-                                <hr>
-
-                                <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
-                                </div>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal para Editar -->
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- Cabeçalho -->
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="EditModalLabel">
-                                <i class='bi bi-pencil-fill me-2'></i> Editar Produto
-                            </h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                        </div>
-
-                        <!-- Corpo -->
-                        <div class="modal-body">
-                            <span id="msgAlertErroEdit">
-                            </span>
-                            <form class="row g-3" method="POST" id="form_editar">
-                                <input type="hidden" id="edit_id" name="id">
-
-                                <div class="col-md-6">
-                                    <label for="inputname" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="edit_nome" name="nome"
-                                        placeholder="Nome do produto">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="inputcode" class="form-label">Código</label>
-                                    <input type="text" class="form-control" id="edit_codigo" name="codigo"
-                                        placeholder="Código do produto">
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="inputdesc" class="form-label">Descrição</label>
-                                    <input type="text" class="form-control" id="edit_descricao" name="descricao"
-                                        placeholder="Descrição do produto">
-                                </div>
-
-                                <div class="col-md-8">
-                                    <label for="inputimg" class="form-label">Imagem</label>
-                                    <!-- Pré-visualização da imagem atual -->
-                                    <div class="mb-2">
-                                        <img id="edit_img_preview" src="" alt="Imagem atual" class="img-thumbnail" style="max-height:150px;">
-                                    </div>
-                                    <!-- Input para selecionar nova imagem -->
-                                    <input type="file" class="form-control" id="edit_imagem" name="imagem" accept="image/*">
-                                    <small class="text-muted">Selecione uma nova imagem para substituir a atual (opcional).</small>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="inputdisponivel" class="form-label">Disponível</label>
-                                    <select id="edit_disponivel" class="form-select" name="disponivel">
-                                        <option value="Sim" selected>Sim</option>
-                                        <option value="Não">Não</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="inputprice" class="form-label">Valor Unitário (R$)</label>
-                                    <input type="text" class="form-control" id="edit_valor" name="valor"
-                                        placeholder="R$00,00">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="edit_categoria" class="form-label">Categoria</label>
-                                    <input type="text" class="form-control" id="edit_categoria" name="categoria" list="categoriasList" placeholder="Digite ou selecione uma categoria">
-                                </div>
-
-                                <div class="col-md-2">
-                                    <label for="inputquant" class="form-label">Quant.</label>
-                                    <input type="number" class="form-control" id="edit_quantidade" name="quantidade"
-                                        placeholder="0">
-                                </div>
-
-                                <hr>
-                                <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
-                                    <button type="submit" value="editar" class="btn btn-outline-warning">Editar</button>
-                                </div>
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
         <hr>
-        <section class="tabela">
-            <span id="msgAlertErroListar">
-            </span>
-            <table id="tabela" class="table table-bordered display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Nome</th>
-                        <th>Disponível</th>
-                        <th>Quantidade</th>
-                        <th>Valor (R$)</th>
-                        <th>Categoria</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-            </table>
+
+        <section class="parent">
+            <div class="div1 card" style="width: 97%; margin-bottom: 2rem; display: flex; justify-content: center; align-items: center;">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                    <h2 class="card-title">Valor Total do Estoque</h2>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Soma do valor de todos os produtos</h6>
+                    <h1 class="card-text" style="font-size: 5rem; margin-top: 2rem;">
+                        R$ <?php echo number_format($valorTotalEstoque, 2, ',', '.'); ?>
+                    </h1>
+                    <a href="produtos.php" style="color: black; text-decoration: none; bottom: 1rem;" class="card-link">
+                        Ir para produtos ->
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="div2 card" style="width: 97%; margin-bottom: 2rem;">
+                <div class="card-body">
+                    <h2 class="card-title">Recados do Desenvolvedor</h2>
+                    <hr>
+                    <?php 
+                    $contador = 0; 
+                    foreach ($recados as $recado): 
+                        if ($contador >= 2) break; 
+                        $contador++; ?>
+                    <div class="recados-content">
+                        <h5><span>⚠️ <?php echo $recado['titulo']; ?></span></h5>
+                        <h6><span><?php echo $recado['mensagem']; ?></span></h6>
+                        <p><span><?php echo $recado['admin'] . " - " . $recado['criado']; ?></span></p>
+                        <hr>    
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="div3 card" style="width: 97%;  margin-bottom: 2rem; display: flex; justify-content: center; align-items: center;">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                    <h2 class="card-title">Produtos Cadastrados</h2>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Total de Produtos Cadastrados</h6>
+                    <h1 class="card-text" style="font-size: 7rem;"><span class="span-cadastrados"><?php echo $resultadoProdutos ?></span></h1>
+                    <a href="index.php" style="color: black; text-decoration: none;" class="card-link">Ir para Produtos -></a>
+                </div>
+                
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                    <h2 class="card-title">Usuários Cadastrados</h2>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Total de Usuários Cadastrados</h6>
+                    <h1 class="card-text" style="font-size: 7rem;"><span class="span-usuarios"><?php echo $resultadoUsuarios ?></span></h1>
+                    <a href="assets/pages/usuarios.php" style="color: black; text-decoration: none;" class="card-link">Ir para Usuários -></a>
+                </div>
+            </div>
 
         </section>
 
         <footer>
-        © 2025   <a style="text-decoration: none; color: black; font-weight: bold;" href="https://www.linkedin.com/in/matheuskauandums/" target="_blank">Matheus Kauan Dums</a> - Sistema de Estoque v.1.0.0<!--  - All Rights Reserved. -->
+        <a href="admin/loginAdmin.php" style="color: black; text-decoration: none;">Parte Exclusiva do Administrador</a> © 2025   <a style="text-decoration: none; color: black; font-weight: bold;" href="https://linktr.ee/matheusdums" target="_blank">Matheus Kauan Dums</a> - Sistema de Estoque v.1.0.0
         </footer>
 
     </main>
@@ -317,7 +122,7 @@ $username = $_SESSION['nome'] ?? 'Usuário';
     <script src="assets/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
     <script src="assets/js/datatables.min.js"></script>
     <script src="assets/js/main.js?v=<?= filemtime('assets/js/main.js') ?>"></script>
-    <script src="assets/js/script.js?v=<?= filemtime('assets/js/script.js') ?>"></script>
+    <script src="assets/js/scriptMain.js?v=<?= filemtime('assets/js/scriptMain.js') ?>"></script>
 
 </body>
 

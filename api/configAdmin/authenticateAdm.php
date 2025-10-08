@@ -9,7 +9,7 @@ if (empty($dados_cadastro['username']) || empty($dados_cadastro['password'])) {
         Preencha todos os campos!
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
     </div>";
-    header("Location: ../../login.php");
+    header("Location: ../../admin/loginAdmin.php");
     exit();
 }
 
@@ -17,7 +17,7 @@ $username = $dados_cadastro['username'];
 $password = $dados_cadastro['password'];
 
 /* Consulta ao banco de dados */
-$sql = "SELECT id, cadastro, nome, user, senha, token, email, telefone, cargo, empresa, imagem FROM usuarios WHERE user = :user OR cadastro = :user";
+$sql = "SELECT id, nome, user_admin, user_pass, token FROM admin_login WHERE user_admin = :user";
 $stmt = $conn->prepare($sql);
 $stmt->bindValue(':user', $username, PDO::PARAM_STR);
 $stmt->execute();
@@ -29,26 +29,20 @@ if (!$resultado) {
         Usuário não encontrado!
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
     </div>";
-    header("Location: ../../login.php");
+    header("Location: ../../admin/loginAdmin.php");
     exit();
 }
 
 /* Verifica se a senha está correta */
-if ($password === $resultado['senha']) {
+if ($password === $resultado['user_pass']) {
     // Autenticação bem-sucedida
     session_start();
     $_SESSION['logado'] = true;
     $_SESSION['user_id'] = $resultado['id'];
-    $_SESSION['cadastro'] = $resultado['cadastro'];
     $_SESSION['nome'] = $resultado['nome'];
-    $_SESSION['senha'] = $resultado['senha'];
+    $_SESSION['senha'] = $resultado['user_pass'];
     $_SESSION['token'] = $resultado['token'];
-    $_SESSION['username'] = $resultado['user'];
-    $_SESSION['email'] = $resultado['email'];
-    $_SESSION['telefone'] = $resultado['telefone'];
-    $_SESSION['cargo'] = $resultado['cargo'];
-    $_SESSION['empresa'] = $resultado['empresa'];
-    $_SESSION['imagem'] = $resultado['imagem'];
+    $_SESSION['username'] = $resultado['user_admin'];
 
     // Gerar token de sessão com expiração de 5 horas
     
@@ -60,14 +54,14 @@ if ($password === $resultado['senha']) {
     $token = base64_encode($payload);
 
     if($token) {
-        $atualiza = $conn->prepare("UPDATE usuarios SET token = :token WHERE id = :id");
+        $atualiza = $conn->prepare("UPDATE admin_login SET token = :token WHERE id = :id");
         $atualiza->bindParam(':token', $token);
         $atualiza->bindParam(':id', $_SESSION['user_id']);
         $atualiza->execute();
     }
 
 
-    header("Location: ../../index.php");
+    header("Location: ../../admin/admin.php");
     exit();
 } else {
     // Senha incorreta
@@ -76,6 +70,6 @@ if ($password === $resultado['senha']) {
         Credenciais incorretas!
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
     </div>";
-    header("Location: ../../login.php");
+    header("Location: ../../admin/loginAdmin.php");
     exit();
 }

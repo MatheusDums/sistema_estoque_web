@@ -1,11 +1,11 @@
-<?php
+<?php 
 require_once './conector.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 if(empty($dados['id'])) {
     $retorna = ['status' => false, 'message' => "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-        Erro! Nenhum ID informado. Tente  novamente mais tarde.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>"];
+        Erro! Nenhum ID informado. Tente novamente mais tarde.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>"];
 } elseif(empty($dados['nome']) || empty($dados['codigo']) 
    || empty($dados['valor']) || empty($dados['descricao'])) {
     $retorna = [
@@ -16,7 +16,14 @@ if(empty($dados['id'])) {
         </div>"
     ];
 } else {
-     $imagem = null;
+    if (isset($dados['quantidade']) && intval($dados['quantidade']) === 0) {
+        $dados['disponivel'] = 'Não';
+    } else {
+        $dados['disponivel'] = 'Sim';
+    }
+
+
+    $imagem = null;
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
         $pasta = __DIR__ . "/../../assets/arquivos/uploads/";
         $nomeArquivo = uniqid() . "-" . basename($_FILES['imagem']['name']);
@@ -51,6 +58,26 @@ if(empty($dados['id'])) {
     $editar->execute();
 
     if($editar->execute()) {
+        if (isset($dados['quantidade']) && intval($dados['quantidade']) < 3) {
+            if (isset($dados['quantidade']) && intval($dados['quantidade'])  < 1) {
+                $titulo = "Estoque Baixo";
+                $mensagem = "O produto <b>" . $dados['nome'] . "</b> está <b>sem unidades em estoque</b>";
+                $inserirNotificacao = $conn->prepare("INSERT INTO notificacoes (titulo, mensagem) VALUES (:titulo, :mensagem)");
+                $inserirNotificacao->bindParam(':titulo', $titulo);
+                $inserirNotificacao->bindParam(':mensagem', $mensagem);
+                $inserirNotificacao->execute();
+            } else {
+                $titulo = "Estoque Baixo";
+                $mensagem = "O produto <b>" . $dados['nome'] . "</b> está com estoque <b>baixo</b>. (" . $dados['quantidade'] . " unidades restantes).";
+                $inserirNotificacao = $conn->prepare("INSERT INTO notificacoes (titulo, mensagem) VALUES (:titulo, :mensagem)");
+                $inserirNotificacao->bindParam(':titulo', $titulo);
+                $inserirNotificacao->bindParam(':mensagem', $mensagem);
+                $inserirNotificacao->execute();
+            }
+            
+        }
+
+
         $retorna = ['status' => true, 
                     'message' => "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                         Dados do Produto <b>". $dados['nome'] . "</b> Editado com Sucesso.

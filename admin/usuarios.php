@@ -1,24 +1,14 @@
-<?php
-require_once __DIR__ . '/../../api/config/check_auth.php';
-
-if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
-    header("Location: login.php");
-    exit();
-}
-
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Estoque - Usuários</title>
-    <link href="../bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Admin - Usuários</title>
+    <link href="../assets/bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/datatables.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <script>const BASE_URL = '../../';</script>
+    <link rel="stylesheet" href="../assets/css/datatables.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
@@ -27,25 +17,24 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
         <a class="btn btn-link me-3" id="toggleSidebar">
             <i class="bi bi-list" style="color: black;"></i>
         </a>
-        <a class="navbar-brand" href="../../index.php">Sistema de Estoque</a>
+        <a class="navbar-brand" href="./admin.php">Sistema de Estoque</a>
         <div class="ms-auto  d-flex align-items-center gap-3">
             <p class="text-dark text-center margin-auto"> Bem vindo, <a href="./perfil.php" style="text-decoration: none; color: black;">
                 <b id="usuarioPopover"  data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
-                 data-bs-content="Aqui você acessa seu perfil e configurações"><?php echo $_SESSION['nome']; ?></b></a>
+                 data-bs-content="Aqui você acessa seu perfil e configurações">Admin</b></a>
             </p>
         </div>
     </nav>
 
     <!-- sidebar -->
     <section class="sidebar" id="sidebar">
-        <a href="../../produtos.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a>
-        <a href="#"><i class="bi bi-people"></i><span> Usuários</span></a>
-        <a href="./configuracoes.php"><i class="bi bi-gear"></i><span> Configurações</span></a>
+        <!-- <a href="../../produtos.php"><i class="bi bi-box-seam"></i><span> Produtos</span></a> -->
+        <a href="./usuarios.php"><i class="bi bi-people"></i><span> Usuários</span></a>
+        <!-- <a href="configuracoes.php"><i class="bi bi-gear"></i><span> Configurações</span></a> -->
         <a href="./help.php"><i class="bi bi-info-circle"></i><span> HelpDesk</span></a>
-        <a href="./notificacoes.php" class="notification-link">
-            <i class="bi bi-bell"></i> <span>Notificações</span><span class="notification-badge hiddenBadge"></span></a>       
-        <a href="assets/pages/futuras.php"><i class="bi bi-capslock"></i> <span>Futuras Implementações</span></a>
-        <a href="exit.php"><i class="bi bi-box-arrow-left"></i><span> Sair</span></a>
+        <a href="./recados.php" class="notification-link">            <i class="bi bi-bell"></i> <span>Recados</span><span class="notification-badge hiddenBadge"></span></a>       
+        <a href="./sugestoes.php"><i class="bi bi-capslock"></i> <span>Sugestões/Melhorias</span></a>
+        <a href="../index.php"><i class="bi bi-box-arrow-left"></i><span> Voltar ao Sistema de Estoque</span></a>
     </section>
 
     <!-- conteúdo principal -->
@@ -306,13 +295,11 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
         </div>
     </div>
 
-
-
-    <script src="../js/jquery-3.7.1.min.js"></script>
-    <script src="../bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
-    <script src="../js/datatables.min.js"></script>
-    <script src="../js/script.js?v=<?= filemtime('../js/script.js') ?>"></script>
-    <script src="../js/script_user.js?v=<?= filemtime('../js/script_user.js') ?>"></script>
+    <script src="../assets/js/jquery-3.7.1.min.js"></script>
+    <script src="../assets/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
+    <script src="../assets/js/datatables.min.js"></script>
+    <script src="../assets/js/script.js?v=<?= filemtime('../assets/js/script.js') ?>"></script>
+    <script src="../assets/js/scriptSugestoes.js?v=<?= filemtime('../assets/js/scriptSugestoes.js') ?>"></script>
 </body>
 
 </html>
