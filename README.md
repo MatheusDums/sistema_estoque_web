@@ -61,5 +61,5 @@ Ha vários fatores que poderiam ser melhorados no código, como a orientação a
 
 ## Screenshots
 
-![Página Inicial](https://drive.google.com/file/d/1IqZVKvRsQ_RK5XdCf-0LFNCyg5a3ZCM7/view?usp=drive_link)
+![Página Inicial](url(https://drive.google.com/file/d/1IqZVKvRsQ_RK5XdCf-0LFNCyg5a3ZCM7/view?usp=drive_link))
 
